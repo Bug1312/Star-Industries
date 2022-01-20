@@ -1,0 +1,19 @@
+<div class="item" onclick="openPopup(this)">
+    <div class="item_popup" closed>
+        <p class="item_popup-name">%(name)</p>
+        <p class="item_popup-fcs"> <a>$%(cost.fcs)FCS</a> per %(per_item.fcs) Item(s)</p>
+        <p class="item_popup-diamond diamond_inline">%(cost.diamond) <img/> per %(per_item.diamond) Item(s)</p>
+        <div class="item_popup-total">
+            <p class="total-fcs" calc="%(cost.fcs)/%(per_item.fcs)">%(cost.fcs)</p>
+            <p class="total-diamond diamond_inline" calc="%(cost.diamond)/%(per_item.diamond)"> %(cost.diamond) <img/></p>
+        </div>
+        <input class="item_popup-amount" type="number" value="1" min="1" max="%(max)" onchange="updateCosts(this)"/>
+        <button class="item_popup-buy" onclick="openForm(this.parentElement.parentElement)">Buy</button>
+    </div>
+    <img class="item-image" src="%(image_URL)" pixelated="%(pixelated)"/>
+    <p class="item-name">%(name)</p>
+    <div class="item-costs">
+        <p class="item-fcs"> <a>$%(cost.fcs)FCS</a> per %(per_item.fcs) Item(s)</p>
+        <p class="item-diamond diamond_inline">%(cost.diamond) <img src="/images/diamond_icon.png"/> per %(per_item.diamond) Item(s)</p>   
+    </div>
+</div>

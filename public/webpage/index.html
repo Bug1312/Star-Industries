@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Star Industries</title>
+    <link href="/webpage/style.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Star Industries Online" />
+    <meta property="og:url" content="https://starindustries.online/" />
+    <meta property="og:image" content="/images/logo.png" />
+    <meta name="theme-color" content="#D2B48C">
+</head>
+
+<body onload="generateContent()">
+    <nav class="nav">
+        <img class="nav-logo" src="/images/logo.png" pixelated="true" />
+        <p class="nav-title">StarIndustries.online</p>
+    </nav>
+
+    <overlay class="overlay" open="false">
+        <form id="delivery-form" class="detail-form" autocomplete="on" onsubmit="sendOrder(event)">
+            <div class="form-box">
+                <label class="label-above label-gray">Minecraft Username</label>
+                <input id="mcUsername" class="bar" type="minecraft-username" placeholder="YOUR Minecraft Username" pattern="\S\S\S+" required>
+            </div>
+            <div class="form-box">
+                <label class="label-above label-gray">Coordinates for delivery</label>
+                <input id="location" class="bar" placeholder="X Y Z Overworld" required>
+            </div>
+            <div class="form-box">
+                <label class="label-above label-gray">Currency used</label>
+                <select id="currencyOption" class="bar" onload="updateDelivery(this.selectedOptions[0])" onchange="updateDelivery(this.selectedOptions[0])">
+                    <option value="FCS">FlexCrop Standard</option>
+                    <option value="diamonds">Diamonds</option>
+                </select>
+            </div>
+            <div class="form-box">
+                <label class="label-above label-gray">You are going to buy:</label>
+                <div class="form-item-div">
+                    <img id="item-img" class="form-item" />
+                    <p id="item-name" class="form-item-name"></p>
+                    <div class="form-item-total">
+                        <p id="total-fcs"></p>
+                        <p id="total-diamond" class="diamond_inline"></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="buttons">
+                <a class="cancel" onclick="closeForm()">Cancel</a>
+                <button class="continue">Order</button>
+            </div>
+        </form>
+    </overlay>
+
+    <main class="main" id="items"></main>
+</body>
+
+<script src="/webpage/script.js" type="text/javascript"></script>
+
+</html>
