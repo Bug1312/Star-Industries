@@ -41,17 +41,17 @@ function openForm(parent) {
 
     document.getElementById("item-img").setAttribute("src", parent.querySelector(".item-image").getAttribute('src'));
     document.getElementById("item-img").setAttribute("pixelated", parent.querySelector(".item-image").getAttribute('pixelated'));
-    
+
     document.getElementById("item-name").innerHTML = `${parent.querySelector(".item-name").innerHTML} #${parent.querySelector(".item_popup-amount").value}`;
 
     document.getElementById("total-fcs").innerHTML = parent.querySelector(".total-fcs").innerHTML;
     document.getElementById("total-diamond").innerHTML = parent.querySelector(".total-diamond").innerHTML;
 
-    document.getElementsByTagName('overlay')[0].setAttribute("open","true");
+    document.getElementsByTagName('overlay')[0].setAttribute("open", "true");
 }
 
 function closeForm() {
-    document.getElementsByTagName('overlay')[0].setAttribute("open","false");
+    document.getElementsByTagName('overlay')[0].setAttribute("open", "false");
 }
 
 
@@ -83,6 +83,10 @@ function generateContent() {
         fetch("/generated/item.html").then(res => res.text()).then(generatedItem => {
             items.forEach(item => {
                 document.getElementById('items').innerHTML += replaceValues(item, generatedItem);
+            });
+
+            document.querySelectorAll('.item_popup-amount').forEach(el => {
+                updateCosts(el)
             });
         });
     });
