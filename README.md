@@ -28,13 +28,13 @@ Max amount of `item` someone can buy at one time.
 ## cost.fcs | Int | Required
 Cost of item in FlexCrop Standard, divided from per_item.fcs.
 
-Ex. `cost.fcs=2` & `per_item.fcs=5` will be 5/2. Buying 5 of `item` will cost $2FCS.
+Ex. `cost.fcs=2` & `per_item.fcs=5` will be 2/5. Buying 5 of `item` will cost $2FCS.
 
 
 ## cost.diamond | Int | Required
 Cost of item in diamonds, divided from per_item.diamond.
 
-Ex. `cost.diamond=2` & `per_item.diamond=5` will be 5/2. Buying 5 of `item` will cost 2 Diamonds.
+Ex. `cost.diamond=2` & `per_item.diamond=5` will be 2/5. Buying 5 of `item` will cost 2 Diamonds.
 
 
 ## per_item.fcs | Int | Optional | 1
