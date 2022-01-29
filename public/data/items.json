@@ -1,1 +1,114 @@
-[]
+[
+	{
+		"name":"Nether Star",
+		"image_URL":"https://progameguides.com/wp-content/uploads/2020/11/Nether_Star.png",
+		"pixelated":true,
+		"max":1,
+		"cost":{
+			"fcs":300,
+			"diamond":30
+		},
+		"per_item":{
+			"fcs":1,
+			"diamond":1
+		}
+	},
+	{
+		"name":"Netherite Ingot",
+		"image_URL":"https://flexcrop.net/data/images/items/16x/netherite_scrap.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":300,
+			"diamond":30
+		},
+		"per_item":{
+			"fcs":1,
+			"diamond":1
+		}
+	},
+	{
+		"name":"Iron Ingot",
+		"image_URL":"https://flexcrop.net/data/images/items/16x/iron_ingot.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":20,
+			"diamond":1
+		},
+		"per_item":{
+			"fcs":10,
+			"diamond":10
+		}
+	},
+	{
+		"name":"Chunk of Plastic",
+		"image_URL":"https://flexcrop.net/data/images/items/16x/plastic_chunk.png",
+		"pixelated":true,
+		"max":200,
+		"cost":{
+			"fcs":350,
+			"diamond":30
+		},
+		"per_item":{
+			"fcs":200,
+			"diamond":200
+		}
+	},
+	{
+		"name":"Redstone Circuits",
+		"image_URL":"https://flexcrop.net/data/images/items/16x/circuit.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":150,
+			"diamond":10
+		},
+		"per_item":{
+			"fcs":5,
+			"diamond":5
+		}
+	},
+	{
+		"name":"Hologram",
+		"image_URL":"https://flexcrop.net/data/images/items/16x/hologram.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":5,
+			"diamond":1
+		},
+		"per_item":{
+			"fcs":1,
+			"diamond":1
+		}
+	},
+	{
+		"name":"Storage Vault",
+		"image_URL":"https://flexcrop.net/data/images/items/+16x/storage_vault.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":75,
+			"diamond":2
+		},
+		"per_item":{
+			"fcs":1,
+			"diamond":1
+		}
+	},
+	{
+		"name":"Glowstone Dust",
+		"image_URL":"https://flexcrop.net/data/images/items/+16x/glowstone.png",
+		"pixelated":true,
+		"max":64,
+		"cost":{
+			"fcs":20,
+			"diamond":3
+		},
+		"per_item":{
+			"fcs":32,
+			"diamond":32
+		}
+	}
+]

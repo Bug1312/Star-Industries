@@ -9,7 +9,7 @@ body {
 }
 
 *[pixelated=true],
-.diamond_inline img{
+.diamond_inline img {
     -ms-interpolation-mode: nearest-neighbor;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: -moz-crisp-edges;
@@ -42,6 +42,15 @@ nav {
     width: 3rem;
 }
 
+.nav-anchor,
+.nav-anchor:focus,
+.nav-anchor:visited {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    text-decoration: none;
+}
+
 main {
     margin-top: 35px;
     display: grid;
@@ -71,9 +80,9 @@ main {
     display: inline;
 }
 
-.item_popup-total .diamond_inline img{
+.item_popup-total .diamond_inline img {
     transform: scale(1.9);
-    margin-left:8px;
+    margin-left: 8px;
 }
 
 
@@ -86,7 +95,7 @@ main {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 
-.item[forcePress] .item_popup-diamond img{
+.item[forcePress] .item_popup-diamond img {
     transform: scale(1.01);
 }
 
@@ -166,7 +175,7 @@ main {
     justify-content: center;
 }
 
-.diamond_inline img{
+.diamond_inline img {
     height: 13px;
     width: 12px;
     display: inline-block;
@@ -327,7 +336,7 @@ form {
 }
 
 .overlay[open=false] {
-    transform:translateY(-100%);
+    transform: translateY(-100%);
 }
 
 .form-item {
@@ -342,12 +351,16 @@ form {
     align-items: center;
 }
 
-.item_popup-total > p:nth-child(1)::before {
+.item_popup-total>a>p::before {
     content: "$"
 }
 
-.item_popup-total > p:nth-child(1)::after {
-    content: "FCS /"
+.item_popup-total>a>p::after {
+    content: "FCS"
+}
+
+.total-diamond::before {
+    content: " /";
 }
 
 #total-diamond img {
@@ -357,8 +370,8 @@ form {
 }
 
 .form-item-total {
-    margin-left:auto;
-    margin-right:15px;
+    margin-left: auto;
+    margin-right: 15px;
 }
 
 #total-fcs::before {

@@ -25,7 +25,11 @@ require('dotenv').config();
 // Pages 
 {
     app.get("/", (request, response) => {
-        response.sendFile(__dirname + "/public/webpage/index.html")
+        response.sendFile(__dirname + "/public/webpages/main/index.html")
+    });
+
+    app.get("/fcs", (request, response) => {
+        response.sendFile(__dirname + "/public/webpages/fcs/index.html")
     });
 
     app.get("/LICENSE", (request, response) => {
@@ -48,20 +52,20 @@ require('dotenv').config();
 
     function createOrderMessage(order) {
         let item = itemData.find(i => i.name == order.item),
-        data = {
+            data = {
                 ign: order.ign,
                 location: order.location,
                 item: order.item,
                 amount: order.amount,
                 currency: order.currency
             };
-            if (order.currency == "FCS") {
-                let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
-                data.total = Math.ceil((item.cost.fcs / default_amt) * order.amount)
-            } else {
-                let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
-                data.total = Math.ceil((item.cost.diamond / default_amt) * order.amount)            
-            }
+        if (order.currency == "FCS") {
+            let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
+            data.total = Math.ceil((item.cost.fcs / default_amt) * order.amount)
+        } else {
+            let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
+            data.total = Math.ceil((item.cost.diamond / default_amt) * order.amount)
+        }
         return [
             `<@${botData.ping_user}>, Order Incoming!`,
             `IGN: \`${data.ign}\``,
