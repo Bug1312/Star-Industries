@@ -28,6 +28,10 @@ require('dotenv').config();
         response.sendFile(__dirname + "/public/webpages/main/index.html")
     });
 
+    app.get("/employees", (request, response) => {
+        response.sendFile(__dirname + "/public/webpages/employees/index.html")
+    });
+
     app.get("/fcs", (request, response) => {
         response.sendFile(__dirname + "/public/webpages/fcs/index.html")
     });
@@ -78,5 +82,5 @@ require('dotenv').config();
 
 // Start bot
 {
-    bot.login(process.env.TOKEN);
+    // bot.login(process.env.TOKEN);
 }

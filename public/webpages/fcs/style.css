@@ -52,6 +52,10 @@ nav {
     text-decoration: none;
 }
 
+.nav-anchor-right {
+    margin-left: auto;
+}
+
 main {
     margin-top: 35px;
     place-content: center;

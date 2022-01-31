@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+    background-color: hsl(180, 100%, 48%);
+    margin: 0;
+    font-family: 'Bebas Neue';
+}
+
+nav {
+    font-family: 'Oswald';
+    background-color: hsl(180, 100%, 50%);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.nav-title {
+    font-size: 2.6rem;
+    margin: 0;
+    margin-left: 10px;
+    background-color: rgb(0, 155, 155);
+    color: transparent;
+    text-shadow: 0px 2px 3px rgb(144 251 255 / 50%);
+    background-clip: text;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+}
+
+.nav-logo {
+    width: 3rem;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.nav-anchor,
+.nav-anchor:focus,
+.nav-anchor:visited {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-anchor-right {
+    margin-left: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+}
+
+#employees {
+    margin-top: 35px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, 200px);
+    place-content: center;
+}
+
+.employee {
+    transform: scale(1);
+    width: 200px;
+    border: outset 5px;
+    background-color: rgb(213 210 212);
+    height: 200px;
+    box-sizing: border-box;
+    transition: 50ms ease-out;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 40%);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+    overflow-y: hidden;
+}
+
+.employee-name {
+    font-size: 1.4rem;
+}
+
+.employee-image {
+    outline: 1px solid rgba(0,0,0,.2);
+    width: 128px;
+    height: 128px;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    margin-bottom: 10px;
+}
+
+.employee p,
+.item_popup p {
+    font-family: 'Bebas Neue';
+    margin: 0;
+}
+
