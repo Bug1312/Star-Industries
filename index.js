@@ -23,6 +23,11 @@ require('dotenv').config();
 
     app.listen(process.env.PORT, () => {
         console.log(`HTTP RUNNING`);
+        db.list('session').then(sessions => {
+            sessions.forEach(session => {
+                db.delete(session);
+            });
+        });
     });
 }
 
