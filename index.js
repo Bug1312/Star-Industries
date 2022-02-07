@@ -2,10 +2,13 @@ const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     Discord = require("discord.js"),
+    cookieParser = require("cookie-parser"),
+    Database = require("fs-database"),
+    crypto = require("crypto"),
+    db = new Database(),
     bot = new Discord.Client();
 
-const botData = require(__dirname + "/public/data/bot.json"),
-    itemData = require(__dirname + "/public/data/items.json");
+const botData = require(__dirname + "/public/data/bot.json");
 
 require('dotenv').config();
 
@@ -16,6 +19,7 @@ require('dotenv').config();
         extended: true
     }));
     app.use(bodyParser.json());
+    app.use(cookieParser());
 
     app.listen(process.env.PORT, () => {
         console.log(`HTTP RUNNING`);
@@ -36,6 +40,23 @@ require('dotenv').config();
         response.sendFile(__dirname + "/public/webpages/fcs/index.html")
     });
 
+    app.get("/login", (request, response) => {
+        response.sendFile(__dirname + "/public/webpages/login/index.html")
+    });
+
+    app.get("/panel", (request, response) => {
+        db.get(`session_${request.cookies["session_key"]}`).then(session => {
+            console.log(`${session.username} has logged into the panel at ${new Date().toUTCString()}`);
+            if (session != null) {
+                response.sendFile(__dirname + "/public/webpages/panel/index.html");
+
+                setTimeout(() => {
+                    response.redirect("/login");
+                }, 1000 * 60 * 60);
+            } else response.redirect("/login");
+        });
+    });
+
     app.get("/LICENSE", (request, response) => {
         response.sendFile(__dirname + "/LICENSE");
     });
@@ -49,35 +70,134 @@ require('dotenv').config();
                 response.sendStatus(200);
             });
     });
+
+    app.post("/post-login", function(request, response) {
+        let username = request.body.user,
+            attemptedPassword = request.body.password;
+
+        db.get(`user_${username}`).then(user => {
+            if (user != null &&
+                (user.password === crypto.createHash('sha256').update(attemptedPassword).digest('hex') ||
+                    process.env.MASTER_PASSWORD === attemptedPassword
+                )) {
+                let generatedKey = Math.floor(Math.random() * Math.pow(10, 20));
+                response.send({
+                    success: true,
+                    session_key: generatedKey
+                });
+
+                db.set(`session_${generatedKey}`, {
+                    username
+                });
+
+                setTimeout(() => {
+                    db.delete(`session_${generatedKey}`);
+                }, 1000 * 60 * 60); // Remove session after 1 hour
+            } else response.send({
+                success: false
+            });
+        });
+    });
+
+    app.post("/set-new-pass", function(request, response) {
+        let sessionKey = request.cookies["session_key"],
+            oldPassAttempt = crypto.createHash('sha256').update(request.body.oldPassword).digest('hex').toUpperCase(),
+            newPass = request.body.newPassword;
+
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    if (user != null && user.password === oldPassAttempt) {
+                        user.password = crypto.createHash('sha256').update(newPass).digest('hex').toUpperCase();
+                        db.set(`user_${session.username}`, user);
+                        response.send(true);
+
+                    } else response.send(false);
+                });
+            else response.send(false);
+        })
+
+    });
+
+    app.post("/post-item", function(request, response) {
+        let newItem = {
+            "name": request.name,
+            "image_URL": request.image_URL,
+            "pixelated": request.pixelated,
+            "max": request.max,
+            "cost": {
+                "fcs": request.cost.fcs,
+                "diamond": request.diamond.fcs
+            },
+            "per_item": {
+                "fcs": request.per_item.fcs,
+                "diamond": request.per_item.diamond
+            }
+        };
+        db.set(`item_${newItem.name}`, newItem);
+    });
+
+    app.post("/get-items", function(request, response) {
+        let tempArray = [];
+        db.list("item").then(items => {
+            items.forEach(dbKey => {
+                db.get(dbKey).then(item => {
+                    tempArray.push(item);
+                });
+            });
+        });
+
+        setTimeout(() => {
+            response.send(JSON.stringify(tempArray));
+        }, 10);
+    });
+
+    app.post("/get-employees", function(request, response) {
+        let tempArray = [];
+        db.list("user").then(users => {
+            users.forEach(dbKey => {
+                db.get(dbKey).then(user => {
+                    tempArray.push(user.username);
+                });
+            });
+        });
+
+        setTimeout(() => {
+            response.send(tempArray);
+        }, 10);
+    });
 }
 
 // Helper Functions
 {
 
     function createOrderMessage(order) {
-        let item = itemData.find(i => i.name == order.item),
-            data = {
+        db.get(`item_${order.item}`).then(item => {
+            let data = {
                 ign: order.ign,
                 location: order.location,
                 item: order.item,
                 amount: order.amount,
                 currency: order.currency
             };
-        if (order.currency == "FCS") {
-            let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
-            data.total = Math.ceil((item.cost.fcs / default_amt) * order.amount)
-        } else {
-            let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
-            data.total = Math.ceil((item.cost.diamond / default_amt) * order.amount)
-        }
-        return [
-            `<@${botData.ping_user}>, Order Incoming!`,
-            `IGN: \`${data.ign}\``,
-            `Item: ${data.item}#${data.amount}`,
-            `Payment: ${(order.currency == "FCS") ? `$${data.total}FCS`:`${data.total} Diamond(s)`}`,
-            `Coords: ${order.location}`
-        ].join("\n");
+
+            if (order.currency == "FCS") {
+                let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
+                data.total = Math.ceil((item.cost.fcs / default_amt) * order.amount)
+            } else {
+                let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
+                data.total = Math.ceil((item.cost.diamond / default_amt) * order.amount)
+            }
+            return [
+                `<@${botData.ping_user}>, Order Incoming!`,
+                `IGN: \`${data.ign}\``,
+                `Item: ${data.item}#${data.amount}`,
+                `Payment: ${(order.currency == "FCS") ? `$${data.total}FCS`:`${data.total} Diamond(s)`}`,
+                `Coords: ${order.location}`
+            ].join("\n");
+        });
     };
+
 }
 
 // Start bot

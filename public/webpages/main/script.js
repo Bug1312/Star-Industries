@@ -79,7 +79,9 @@ function sendOrder(event) {
 };
 
 function generateContent() {
-    fetch(`/data/items.json`).then(res => res.text()).then(text => JSON.parse(text)).then(items => {
+    fetch('/get-items', {
+        method: "POST"
+    }).then(res => res.text()).then(text => JSON.parse(text)).then(items => {
         fetch("/generated/item.html").then(res => res.text()).then(generatedItem => {
             items.forEach(item => {
                 document.getElementById('items').innerHTML += replaceValues(item, generatedItem);
