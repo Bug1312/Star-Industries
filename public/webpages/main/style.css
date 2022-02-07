@@ -162,7 +162,6 @@ main {
 .item-image {
     width: 128px;
     height: 128px;
-    image-rendering: pixelated;
     margin-bottom: 10px;
 }
 

@@ -46,8 +46,8 @@ require('dotenv').config();
 
     app.get("/panel", (request, response) => {
         db.get(`session_${request.cookies["session_key"]}`).then(session => {
-            console.log(`${session.username} has logged into the panel at ${new Date().toUTCString()}`);
             if (session != null) {
+                console.log(`${session.username} has logged into the panel at ${new Date().toUTCString()}`);
                 response.sendFile(__dirname + "/public/webpages/panel/index.html");
 
                 setTimeout(() => {
@@ -120,21 +120,39 @@ require('dotenv').config();
     });
 
     app.post("/post-item", function(request, response) {
-        let newItem = {
-            "name": request.name,
-            "image_URL": request.image_URL,
-            "pixelated": request.pixelated,
-            "max": request.max,
-            "cost": {
-                "fcs": request.cost.fcs,
-                "diamond": request.diamond.fcs
-            },
-            "per_item": {
-                "fcs": request.per_item.fcs,
-                "diamond": request.per_item.diamond
-            }
-        };
-        db.set(`item_${newItem.name}`, newItem);
+        let sessionKey = request.cookies["session_key"];
+
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    if (user != null) {
+
+                        console.log(`${user.username} has created a new item`);
+                        console.log(request.body);
+                        let newItem = {
+                            "name": request.body.name,
+                            "image_URL": request.body.image_URL,
+                            "pixelated": request.body.pixelated,
+                            "max": request.body.max,
+                            "cost": {
+                                "fcs": request.body.cost.fcs,
+                                "diamond": request.body.cost.diamond
+                            },
+                            "per_item": {
+                                "fcs": request.body.per_item.fcs,
+                                "diamond": request.body.per_item.diamond
+                            }
+                        };
+                        db.set(`item_${newItem.name}`, newItem);
+
+                        response.send(true);
+
+                    } else response.send(false);
+                });
+            else response.send(false);
+        })
+
+       
     });
 
     app.post("/get-items", function(request, response) {
