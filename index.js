@@ -8,7 +8,18 @@ const express = require("express"),
     db = new Database(),
     bot = new Discord.Client();
 
-const botData = require(__dirname + "/public/data/bot.json");
+const botData = {
+    "channels": {
+        "orders": "630438938464485387"
+    },
+    "ping_user": "566630859772526627"
+}
+// const botData = {
+//     "channels": {
+//         "orders": "933191055107571732"
+//     },
+//     "ping_user": "542241353325871105"
+// }
 
 require('dotenv').config();
 
@@ -71,9 +82,11 @@ require('dotenv').config();
 {
     app.post("/post-order", function(request, response) {
         if (request.body.item != undefined)
-            bot.channels.cache.get(botData.channels.orders).send(createOrderMessage(request.body)).then(m => {
+        createOrderMessage(request.body).then(msg => {
+            bot.channels.cache.get(botData.channels.orders).send(msg).then(_ => {
                 response.sendStatus(200);
             });
+        })
     });
 
     app.post("/post-login", function(request, response) {
@@ -161,41 +174,33 @@ require('dotenv').config();
     });
 
     app.post("/get-items", function(request, response) {
-        let tempArray = [];
         db.list("item").then(items => {
-            items.forEach(dbKey => {
+            let tempArray = [];
+            for(dbKey of items) {
                 db.get(dbKey).then(item => {
                     tempArray.push(item);
                 });
-            });
-        });
-
-        setTimeout(() => {
-            response.send(JSON.stringify(tempArray));
-        }, 10);
+            }
+            return tempArray;
+        }).then(items=>response.send(JSON.stringify(items)));
     });
 
     app.post("/get-employees", function(request, response) {
-        let tempArray = [];
         db.list("user").then(users => {
-            users.forEach(dbKey => {
+            let tempArray = [];
+            for(dbKey of users) {
                 db.get(dbKey).then(user => {
-                    tempArray.push(user.username);
+                    tempArray.push({name:user.username});
                 });
-            });
-        });
-
-        setTimeout(() => {
-            response.send(tempArray);
-        }, 10);
+            }
+            return tempArray;
+        }).then(items=>response.send(JSON.stringify(items)));;
     });
 }
 
 // Helper Functions
-{
-
     function createOrderMessage(order) {
-        db.get(`item_${order.item}`).then(item => {
+        return db.get(`item_${order.item}`).then(item => {
             let data = {
                 ign: order.ign,
                 location: order.location,
@@ -221,9 +226,7 @@ require('dotenv').config();
         });
     };
 
-}
-
 // Start bot
 {
-    // bot.login(process.env.TOKEN);
+    bot.login(process.env.TOKEN);
 }

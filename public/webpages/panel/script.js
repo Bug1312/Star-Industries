@@ -81,29 +81,3 @@ function updatePreview(){
         });
     });
 }
-
-function replaceValues(item, generatedHTML, extraData = {}) {
-    return generatedHTML.replaceAll(/%\([^)]*\)/g, match => {
-        let key = match.replaceAll(/(^%\(|\)$)/g, ''),
-            value = recursiveValue(item, key);
-
-        if (value == undefined) // Default values
-            switch (key) {
-                default:
-                    if (recursiveValue(extraData, key) == undefined) return "";
-                    return recursiveValue(extraData, key);
-                case "pixelized":
-                    return true;
-                case "per_item.fcs":
-                case "per_item.diamond":
-                    return 1;
-                case "max":
-                    return Infinity;
-            };
-        return value;
-    });
-}
-
-function recursiveValue(object, keyString) {
-    return new Function('item', `try { return item.${keyString}; } catch(err) { return undefined; }`)(object);
-}

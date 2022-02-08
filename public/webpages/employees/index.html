@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>Star Industries</title>
     <link href="/webpages/employees/style.css" rel="stylesheet">
+    <link href="/webpages/shared/style.css" rel="stylesheet">
+    <link href="/webpages/shared/nav.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,22 +17,17 @@
     <meta name="theme-color" content="#D2B48C">
 </head>
 
-<body onload="generateContent()">
-    <nav class="nav">
-        <a class="nav-anchor" href="/">
-            <img class="nav-logo" src="/images/logo.png" pixelated="true" />
-            <p class="nav-title">StarIndustries.online</p>
-        </a>
-        <a href="/employees" class="nav-anchor nav-anchor-right nav-title">Employees</a>
+<body>
+    <imported type="nav"></imported>
 
-    </nav>
     <main>
         <h1> Star Industries Employees </h1>
-        <div id="employees"></div>
+        <div class="employees" type="employees" generated></div>
     </main>
 
     </body>
 
     <script src="/webpages/employees/script.js" type="text/javascript"></script>
+    <script src="/webpages/shared/script.js" type="text/javascript"></script>
 
 </html>

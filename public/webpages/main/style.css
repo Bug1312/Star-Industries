@@ -1,60 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
-body {
-    background-color: hsl(180, 100%, 48%);
-    margin: 0;
-    color: white;
-    font-family: 'Bebas Neue';
-}
-
-*[pixelated=true],
-.diamond_inline img {
-    -ms-interpolation-mode: nearest-neighbor;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -o-pixelated;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-}
-
-nav {
-    font-family: 'Oswald';
-    background-color: hsl(180, 100%, 50%);
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.nav-title {
-    font-size: 2.6rem;
-    margin: 0;
-    margin-left: 10px;
-    background-color: rgb(0, 155, 155);
-    color: transparent;
-    text-shadow: 0px 2px 3px rgb(144 251 255 / 50%);
-    background-clip: text;
-    -moz-background-clip: text;
-    -webkit-background-clip: text;
-}
-
-.nav-logo {
-    width: 3rem;
-}
-
-.nav-anchor,
-.nav-anchor:focus,
-.nav-anchor:visited {
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    text-decoration: none;
-}
-
-.nav-anchor-right {
-    margin-left: auto;
-}
-
 main {
     margin-top: 35px;
     display: grid;
@@ -63,144 +6,11 @@ main {
     place-content: center;
 }
 
-.item {
-    transform: scale(1);
-    width: 200px;
-    border: outset 5px;
-    background-color: rgb(213 210 212);
-    height: 260px;
-    box-sizing: border-box;
-    transition: 50ms ease-out;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 75%);
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 15px;
-    overflow-y: hidden;
-}
-
-.item_popup-total p {
-    display: inline;
-}
-
-.item_popup-total .diamond_inline img {
-    transform: scale(1.9);
-    margin-left: 8px;
-}
-
-
-.item:hover,
-.item:active,
-.item[forcePress] {
-    background-color: rgb(211, 203, 208);
-    cursor: pointer;
-    transform: scale(0.99);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-}
-
-.item[forcePress] .item_popup-diamond img {
-    transform: scale(1.01);
-}
-
-.item-name {
-    font-size: 1.4rem;
-}
-
-.item_popup[closed] {
-    transform: translateY(-275px);
-}
-
-.item_popup {
-    cursor: initial;
-    transform: translateY(-15px);
-    position: absolute;
-    box-sizing: border-box;
-    width: 190px;
-    background-color: rgb(223, 221, 222);
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    transition: 500ms cubic-bezier(0.7, 1.6, 0.52, 0.75);
-}
-
-.item_popup-amount {
-    margin-bottom: 7px;
-    border: none;
-    padding: 5px 10px;
-    color: black;
-    background-color: rgb(144, 251, 255);
-    font-family: 'Oswald';
-    font-size: 1.2rem;
-    transition: 300ms ease;
-    text-align: right;
-    outline: 1px solid black;
-    border-radius: 4px;
-}
-
-
-.item_popup-buy {
-    margin-top: auto;
-    border: none;
-    padding: 5px 10px;
-    background-color: rgb(53, 191, 145);
-    color: white;
-    font-family: 'Oswald';
-    font-size: 1.2rem;
-    transition: 300ms ease;
-    border-radius: 6px;
-    border-bottom: 3px solid hsl(160, 57%, 26%);
-}
-
-.item_popup-buy:hover {
-    cursor: pointer;
-    border-bottom: none;
-}
-
-.item-image {
-    width: 128px;
-    height: 128px;
-    margin-bottom: 10px;
-}
-
-.item p,
-.item_popup p {
-    font-family: 'Bebas Neue';
-    color: black;
-    margin: 0;
-}
-
-.diamond_inline {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-}
-
-.diamond_inline img {
-    height: 13px;
-    width: 12px;
-    display: inline-block;
-    margin: auto 2px 4px 2px;
-    content: url(/images/diamond_icon.png);
-}
-
-.item_popup-name,
-.item_popup-total {
-    font-size: 1.6rem;
-}
-
-.item-costs {
-    margin-top: auto;
-}
-
 /* FORM BOX */
 
 form {
     font-size: 2rem;
     display: flex;
-    width: 60%;
     flex-direction: column;
     align-items: center;
     margin: auto;
@@ -339,7 +149,7 @@ form {
 }
 
 .overlay[open=false] {
-    transform: translateY(-100%);
+    transform: translateY(-100vh);
 }
 
 .form-item {
@@ -383,4 +193,10 @@ form {
 
 #total-fcs::after {
     content: "FCS"
+}
+
+@media only screen and (min-width: 768px) {
+    form {
+        width: 60%;
+    } 
 }
