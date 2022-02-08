@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Star Staff Panel</title>
+    <link href="/webpages/main/style.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/webpages/panel/script.js" type="text/javascript"></script>
+
+    <style>
+        form {
+            width:100%;display:block;color:black;font-size: 1rem;position: static;transform: none;
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <form onsubmit="passChange(event)">
+        <input id="form_pass-old_pass" type="password" placeholder="Old Password">
+        <input id="form_pass-new_pass" type="password" placeholder="New Password">
+        <input id="form_pass-new_pass_confirm" type="password" placeholder="Confirm New Password">
+        <button type="submit">Change Pass</button>
+    </form>
+    <form onsubmit="newItem(event)" onchange="updatePreview()">
+        <br />
+        <input id="form_item-name" type="text" placeholder="Item Name">
+        <input id="form_item-max" type="number" step="1" placeholder="Max Amount (Leave blank for infinity)">
+
+        <br />
+        <input id="form_item-img" type="text" placeholder="Item image URL">
+        <input id="form_item-pixelized" type="checkbox">
+        Pixelized?
+        <br />
+        <input id="form_item-fcs_cost" type="number" step="1" placeholder="FCS Cost">
+         / 
+        <input id="form_item-fcs_per" type="number" step="1" placeholder="Per this number">
+        <br />
+        <input id="form_item-diamond_cost" type="number" step="1" placeholder="Diamond Cost">
+         / 
+        <input id="form_item-diamond_per" type="number" step="1" placeholder="Per this number">
+        <br />
+        <button type="submit">Create Item</button>
+    </form>
+
+    <div id="preview"></div>
+</body>
+
+</html>

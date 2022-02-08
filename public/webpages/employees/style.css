@@ -33,6 +33,24 @@ h1 {
     text-align: center;
     padding: 15px;
     overflow-y: hidden;
+
+    /*
+    transform: scale(1);
+    width: 215px;
+    height: 215px;
+    box-sizing: border-box;
+    transition: 50ms ease-out;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow-y: hidden;
+    border: outset 5px #00f5f5;
+    background-color: orange;
+    padding: 24px 0 0 3px;
+    transition: 50ms ease-out;
+    border-radius: 50%;
+    */
 }
 
 .employee-name {

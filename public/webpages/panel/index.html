@@ -3,51 +3,35 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Star Staff Panel</title>
-    <link href="/webpages/main/style.css" rel="stylesheet">
+    <title>Star Industries Staff Panel</title>
+    <link href="/webpages/panel/style.css" rel="stylesheet">
+    <link href="/webpages/shared/nav.css" rel="stylesheet">
+    <link href="/webpages/shared/style.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="/webpages/panel/script.js" type="text/javascript"></script>
-
-    <style>
-        form {
-            width:100%;display:block;color:black;font-size: 1rem;position: static;transform: none;
-        }
-    </style>
 </head>
 
-
-
 <body>
-    <form onsubmit="passChange(event)">
-        <input id="form_pass-old_pass" type="password" placeholder="Old Password">
-        <input id="form_pass-new_pass" type="password" placeholder="New Password">
-        <input id="form_pass-new_pass_confirm" type="password" placeholder="Confirm New Password">
-        <button type="submit">Change Pass</button>
-    </form>
-    <form onsubmit="newItem(event)" onchange="updatePreview()">
-        <br />
-        <input id="form_item-name" type="text" placeholder="Item Name">
-        <input id="form_item-max" type="number" step="1" placeholder="Max Amount (Leave blank for infinity)">
+    <nav type="nav_staff" generated></nav>
 
-        <br />
-        <input id="form_item-img" type="text" placeholder="Item image URL">
-        <input id="form_item-pixelized" type="checkbox">
-        Pixelized?
-        <br />
-        <input id="form_item-fcs_cost" type="number" step="1" placeholder="FCS Cost">
-         / 
-        <input id="form_item-fcs_per" type="number" step="1" placeholder="Per this number">
-        <br />
-        <input id="form_item-diamond_cost" type="number" step="1" placeholder="Diamond Cost">
-         / 
-        <input id="form_item-diamond_per" type="number" step="1" placeholder="Per this number">
-        <br />
-        <button type="submit">Create Item</button>
-    </form>
+    <main>
+        <div name="login / change pass">
+            <header>Change Password</header>
+        </div>
+        <div name="item manip">
+            <header>
+               Items - <a>New</a>
+               <div name="tab system"></div>
+            </header>
 
-    <div id="preview"></div>
+            <div type="tab" name="new item"></div>
+            <div type="tab" name="edit items"></div>
+        </div>
+        <div name="orders"></div>
+    </main>
+
 </body>
+
+    <script src="/webpages/shared/script.js" type="text/javascript"></script>
 
 </html>
