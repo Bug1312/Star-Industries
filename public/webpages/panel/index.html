@@ -15,17 +15,54 @@
     <nav type="nav_staff" generated></nav>
 
     <main>
-        <div name="login / change pass">
+        <div class="" name="login / change pass">
             <header>Change Password</header>
+            <form id="change_pass">
+                <div class="inputs">
+                    <input id="old" type="password" placeholder="Old Password">
+
+                    <input id="new" type="password" placeholder="New Password">
+                    <input id="new_confirm" type="password" placeholder="Confirm New Password">
+                </div>
+                <button type="submit" class="submit">Change Password</button>
+            </form>
         </div>
         <div name="item manip">
             <header>
-               Items - <a>New</a>
-               <div name="tab system"></div>
+               Items - <a>New(/edit)</a>
             </header>
+            <form>
+                <input id="edit_item-name" type="text" placeholder="Item Name" required>
+                <input id="edit_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
+                <div>
+                    <label class="form_label">Image</label>
+                    <a>
+                        <input id="edit_item-image" type="text" placeholder="Image URL" required>
+                        <label for="edit_item-pixelized">Pixelized?</label>
+                        <input id="edit_item-pixelized" type="checkbox">
+                    </a>
+                </div>
+                <div>
+                    <label class="form_label">Prices</label>
+                    <a>
+                        <input id="edit_item-cost_fcs" type="number" placeholder="FCS Cost" required>
+                        /
+                        <input id="edit_item-per_fcs" type="number" placeholder="Per Item" required>
+                    </a>
+                    <a>
+                        <input id="edit_item-cost_diamond" type="number" placeholder="Diamond Cost" required>
+                        /
+                        <input id="edit_item-per_diamond" type="number" placeholder="Per Item" required>
+                    </a>
+                </div>
+                <div>
+                    <label class="form_label">Preview</label>
+                    <generated type="item_panel"></generated>
+                </div>
+                <button type="submit">Create Item</button>
+                <!-- <button type="submit">Edit Item</button> -->
+            </form>
 
-            <div type="tab" name="new item"></div>
-            <div type="tab" name="edit items"></div>
         </div>
         <div name="orders"></div>
     </main>
