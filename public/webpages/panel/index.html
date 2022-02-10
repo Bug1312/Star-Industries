@@ -29,42 +29,99 @@
         </div>
         <div name="item manip">
             <header>
-               Items - <a>New(/edit)</a>
+               Items - <a>New(/edit/delete)</a>
             </header>
-            <form>
-                <input id="edit_item-name" type="text" placeholder="Item Name" required>
-                <input id="edit_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
-                <div>
-                    <label class="form_label">Image</label>
-                    <a>
-                        <input id="edit_item-image" type="text" placeholder="Image URL" required>
-                        <label for="edit_item-pixelized">Pixelized?</label>
-                        <input id="edit_item-pixelized" type="checkbox">
-                    </a>
-                </div>
-                <div>
-                    <label class="form_label">Prices</label>
-                    <a>
-                        <input id="edit_item-cost_fcs" type="number" placeholder="FCS Cost" required>
-                        /
-                        <input id="edit_item-per_fcs" type="number" placeholder="Per Item" required>
-                    </a>
-                    <a>
-                        <input id="edit_item-cost_diamond" type="number" placeholder="Diamond Cost" required>
-                        /
-                        <input id="edit_item-per_diamond" type="number" placeholder="Per Item" required>
-                    </a>
-                </div>
-                <div>
-                    <label class="form_label">Preview</label>
-                    <generated type="item_panel"></generated>
-                </div>
-                <button type="submit">Create Item</button>
-                <!-- <button type="submit">Edit Item</button> -->
-            </form>
-
+            <div name="tab_create">
+                <form>
+                    <input id="create_item-name" type="text" placeholder="Item Name" required>
+                    <input id="create_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
+                    <div>
+                        <label class="form_label">Image</label>
+                        <a>
+                            <input id="create_item-image" type="text" placeholder="Image URL" required>
+                            <label for="create_item-pixelized">Pixelized?</label>
+                            <input id="create_item-pixelized" type="checkbox">
+                        </a>
+                    </div>
+                    <div>
+                        <label class="form_label">Prices</label>
+                        <a>
+                            <input id="create_item-cost_fcs" type="number" placeholder="FCS Cost" required>
+                            /
+                            <input id="create_item-per_fcs" type="number" placeholder="Per Item" required>
+                        </a>
+                        <a>
+                            <input id="create_item-cost_diamond" type="number" placeholder="Diamond Cost" required>
+                            /
+                            <input id="create_item-per_diamond" type="number" placeholder="Per Item" required>
+                        </a>
+                    </div>
+                    <div>
+                        <label class="form_label">Preview</label>
+                        <generated type="item_panel"></generated>
+                    </div>
+                    <button type="submit">Create Item</button>
+                </form>
+            </div>
+            <div name="tab_edit">
+                <form>
+                    <input id="edit_item-name" type="text" placeholder="Item Name" required>
+                    <input id="edit_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
+                    <div>
+                        <label class="form_label">Image</label>
+                        <a>
+                            <input id="edit_item-image" type="text" placeholder="Image URL" required>
+                            <label for="edit_item-pixelized">Pixelized?</label>
+                            <input id="edit_item-pixelized" type="checkbox">
+                        </a>
+                    </div>
+                    <div>
+                        <label class="form_label">Prices</label>
+                        <a>
+                            <input id="edit_item-cost_fcs" type="number" placeholder="FCS Cost" required>
+                            /
+                            <input id="edit_item-per_fcs" type="number" placeholder="Per Item" required>
+                        </a>
+                        <a>
+                            <input id="edit_item-cost_diamond" type="number" placeholder="Diamond Cost" required>
+                            /
+                            <input id="edit_item-per_diamond" type="number" placeholder="Per Item" required>
+                        </a>
+                    </div>
+                    <div>
+                        <label class="form_label">Preview</label>
+                        <generated type="item_panel"></generated>
+                    </div>
+                    <button type="submit">Edit Item</button>
+                </form>
+            </div>
+            <div name="tab_remove">
+                <table>
+                    <thead>
+                        <td>Remove</td>
+                        <td>Item</td>
+                    </thead>
+                    <tbody type="item_panel-remove" generated>
+                    </tbody>
+                </table>
+                <button type="submit">Remove Item(s)</button>
+            </div>
         </div>
-        <div name="orders"></div>
+        <div name="orders">
+            <table>
+                <thead>
+                    <td>Complete    </td>
+                    <td>Reserve     </td>
+                    <td>IGN         </td>
+                    <td>Item        </td>
+                    <td>Amount      </td>
+                    <td>Coordinates </td>
+                    <td>Payment     </td>
+                    <td>Reserved To </td>
+                </thead>
+                <tbody type="item_panel-complete" generated></tbody>
+            </table>
+        </div>
     </main>
 
 </body>

@@ -1,21 +1,20 @@
 window.onload = () => {
-    importContent('/webpages/shared/imported/nav.html', 'nav'); 
+    importContents(); 
 
     generateContent('/get-items'    ,               '/webpages/shared/generated/item_main.html', 'items_main'      );
     generateContent('/get-employees',               '/webpages/shared/generated/employee.html',  'employees'       );
     generateContent('https://api.flexcrop.net/fcs', '/webpages/shared/generated/item_fcs.html',  'items_fcs', false);
 };
 
-function importContent(htmlURL, type) {
-    if(document.querySelectorAll(`imported[type=${type}]`).length > 0)
-        fetch(htmlURL).then(res => res.text()).then(importedHTML => {
-            let replaced = document.querySelectorAll(`imported[type=${type}]`);
+async function importContents() {
+    while(document.getElementsByTagName('imported').length > 0) {
+        let element = document.getElementsByTagName('imported')[0],
+            type = element.getAttribute('type');
 
-            for(element of replaced) {
-                element.outerHTML = importedHTML;
-            };
-
+        await fetch(`/webpages/shared/imported/${type}.html`).then(res => res.text()).then(importedHTML => {
+            element.outerHTML = importedHTML;
         });
+    }
 }
 
 function generateContent(fetchURL, htmlURL, type, post = true) {
