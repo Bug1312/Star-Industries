@@ -1,0 +1,94 @@
+main {
+    margin-top: 35px;
+    margin: 35px auto auto auto;
+    width: 90%;
+    display: grid;
+    grid-gap: 45px;
+    grid-template-rows: 500px auto;
+    grid-template-columns: 300px auto;
+}
+
+.section {
+    background-color: aliceblue;
+    box-shadow: 10px 10px 0 hsl(180, 100%, 30%);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.item-section {
+    overflow: visible;
+    transform: translateY(30px);
+    height: calc(100% - 30px);
+    z-index: 1;
+}
+
+.order-section {
+    grid-column: span 2;
+}
+
+.section>* {
+    padding: 15px;
+}
+
+.tabs {
+    display: grid;
+    grid-auto-flow: column;
+    width: min-content;
+    padding: 0;
+    grid-gap:5px;
+    position: absolute;
+    transform: translateY(-29px);
+    z-index: -1;
+}
+
+.tabs>*{
+    padding: 5px 30px 5px 30px;
+    background-color: aliceblue;
+    box-shadow: 10px 10px 0 hsl(180, 100%, 30%);
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+}
+
+.tabs>*[selected] {
+    background-color: hsl(180, 100%, 35%);
+    transform: translateY(-5px);
+    padding-bottom: 35px;
+    z-index: -1;
+}
+
+.section header {
+    font-size: 2rem;
+    color: white;
+    background-color: hsl(180, 100%, 35%);
+    padding:5px;
+    padding-left: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    font-size: 1.2rem;
+    height:2rem;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+    padding:5px;
+    border-radius: 0;
+    background-color: lightgray;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    font-family: 'Bebas Neue';
+
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.form_label {
+    display: block;
+}

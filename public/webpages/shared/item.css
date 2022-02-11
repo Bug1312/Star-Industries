@@ -108,6 +108,12 @@
     margin: 0;
 }
 
+.item_popup a,
+.item_popup a p,
+.item_popup a:visited {
+    color:blue;
+}
+
 .item_popup-name,
 .item_popup-total {
     font-size: 1.6rem;

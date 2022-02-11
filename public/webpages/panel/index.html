@@ -12,10 +12,10 @@
 </head>
 
 <body>
-    <nav type="nav_staff" generated></nav>
+    <imported type="nav_staff"></imported>
 
     <main>
-        <div class="" name="login / change pass">
+        <div class="section" name="login / change pass">
             <header>Change Password</header>
             <form id="change_pass">
                 <div class="inputs">
@@ -24,10 +24,18 @@
                     <input id="new" type="password" placeholder="New Password">
                     <input id="new_confirm" type="password" placeholder="Confirm New Password">
                 </div>
-                <button type="submit" class="submit">Change Password</button>
+                <div class="buttons">
+                    <button type="submit" class="submit">Log Out</button>
+                    <button type="submit" class="submit">Change Password</button>
+                </div>             
             </form>
         </div>
-        <div name="item manip">
+        <div class="section item-section" name="item manip">
+            <div class="tabs" name="tabs">
+                <a selected>New</a>
+                <a>Edit</a>
+                <a>Delete</a>
+            </div>
             <header>
                Items - <a>New(/edit/delete)</a>
             </header>
@@ -63,7 +71,7 @@
                     <button type="submit">Create Item</button>
                 </form>
             </div>
-            <div name="tab_edit">
+            <div name="tab_edit" hidden>
                 <form>
                     <input id="edit_item-name" type="text" placeholder="Item Name" required>
                     <input id="edit_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
@@ -95,7 +103,7 @@
                     <button type="submit">Edit Item</button>
                 </form>
             </div>
-            <div name="tab_remove">
+            <div name="tab_remove" hidden>
                 <table>
                     <thead>
                         <td>Remove</td>
@@ -107,7 +115,7 @@
                 <button type="submit">Remove Item(s)</button>
             </div>
         </div>
-        <div name="orders">
+        <div class="section order-section" name="orders">
             <table>
                 <thead>
                     <td>Complete    </td>
