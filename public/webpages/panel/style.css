@@ -250,5 +250,6 @@ button.blue:focus {
 
 .item-section .locked {
     width: 97%;
-    height: 94%;
+    height: 100%;
+    top:-30px;
 }
