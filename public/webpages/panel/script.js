@@ -72,7 +72,7 @@ function reloadPreview(edit = false) {
             fcs: document.getElementById(`${type}-cost_diamond`).value,
             diamond: document.getElementById(`${type}-per_diamond`).value,
         },
-        previews = document.querySelectorAll('generated[type="item_panel"]')
+        previews = document.querySelectorAll('generated[type="item_panel-edit"]')
 
     let item = {
         name,
