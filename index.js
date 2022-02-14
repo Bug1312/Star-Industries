@@ -61,16 +61,16 @@ require('dotenv').config();
     });
 
     app.get("/panel", (request, response) => {
-        // db.get(`session_${request.cookies["session_key"]}`).then(session => {
-        //     if (session != null) {
-        //         console.log(`${session.username} has logged into the panel at ${new Date().toUTCString()}`);
+        db.get(`session_${request.cookies["session_key"]}`).then(session => {
+            if (session != null) {
+                console.log(`${session.username} has logged into the panel at ${new Date().toUTCString()}`);
                 response.sendFile(__dirname + "/public/webpages/panel/index.html");
 
-        //         setTimeout(() => {
-        //             response.redirect("/login");
-        //         }, 1000 * 60 * 60);
-        //     } else response.redirect("/login");
-        // });
+                setTimeout(() => {
+                    response.redirect("/login");
+                }, 1000 * 60 * 60);
+            } else response.redirect("/login");
+        });
     });
 
     app.get("/LICENSE", (request, response) => {

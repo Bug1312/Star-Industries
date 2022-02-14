@@ -4,7 +4,7 @@ main {
     width: 90%;
     display: grid;
     grid-gap: 45px;
-    grid-template-rows: 500px auto;
+    grid-template-rows: 500px 275px;
     grid-template-columns: 300px auto;
 }
 
@@ -40,6 +40,7 @@ main {
     position: absolute;
     transform: translateY(-29px);
     z-index: -1;
+    width: max-content;
 }
 
 .tabs>* {
@@ -68,6 +69,13 @@ main {
     z-index: -1;
 }
 
+.separated_group {
+    background-color: rgb(129 198 201);
+    border-radius: 5px;
+    padding:5px;
+    margin:5px;
+}
+
 .section header {
     font-size: 2rem;
     color: white;
@@ -76,19 +84,32 @@ main {
     padding-left: 15px;
 }
 
-input[type="text"],
-input[type="password"] {
+.input {
     font-size: 1.2rem;
     height: 2rem;
-    width: calc(100% - 20px);
-    padding: 5px;
+    padding: 0 5px;
     margin: 5px;
-    border-radius: 0;
-    background-color: lightgray;
+    background-color: #f5f1f1;
     border-radius: 2px;
     border: none;
     color: black;
     font-family: 'Bebas Neue';
+}
+
+.long_input {
+    width: calc(100% - 20px);
+
+}
+
+.short_input {
+    width: calc((50% - 29px));
+}
+
+.slash {
+    width: 20px;
+    font-size: 2rem;
+    position: relative;
+    bottom: -5px;
 }
 
 #change_pass input {
@@ -146,7 +167,6 @@ button.blue:focus {
     background-color: #00cdcd;
 }
 
-#create_item,
 #edit_item {
     display: grid;
     grid-template-columns: auto 250px;
@@ -176,4 +196,59 @@ button.blue:focus {
 
 .remove_item-name {
     margin: 0;
+}
+
+#edit_item-image {
+    font-family:  sans-serif;
+}
+
+.pixelized_div {
+    display: flex;
+}
+
+.pixelized_div>div {
+    display: flex;
+    padding: 5px;
+    width: calc(50% - 15px);
+    height: 2rem;
+    padding: 0 5px;
+    margin: 5px;
+    border-radius: 2px;
+    background-color: #f5f1f1;
+    border: none;
+    align-items: center;
+}
+
+.darker_input {
+    background-color: lightgray;
+}
+
+.item {
+    margin: 12px auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+.item:hover,
+.item:visited {
+    transform: scale(1);
+}
+
+.locked {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 2px;
+    top:0;
+    left:0;
+    background-color: #00e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Material Icons';
+    font-size: 5rem;
+}
+
+.item-section .locked {
+    width: 97%;
+    height: 94%;
 }

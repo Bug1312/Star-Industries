@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Star Industries Staff Panel</title>
-    <link href="/webpages/panel/style.css" rel="stylesheet">
     <link href="/webpages/shared/nav.css" rel="stylesheet">
     <link href="/webpages/shared/item.css" rel="stylesheet">
     <link href="/webpages/shared/style.css" rel="stylesheet">
+    <link href="/webpages/panel/style.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -20,10 +20,10 @@
             <header>Change Password</header>
             <form id="change_pass" onsubmit="passChange(event)">
                 <div class="column-inputs">
-                    <input id="change_pass-old" type="password" placeholder="Old Password" required autocomplete="true">
+                    <input id="change_pass-old" class="darker_input input long_input" type="password" placeholder="Old Password" required autocomplete="true">
 
-                    <input id="change_pass-new" type="password" placeholder="New Password" required autocomplete="true">
-                    <input id="change_pass-new_confirm" type="password" placeholder="Confirm New Password" required autocomplete="false">
+                    <input id="change_pass-new" class="darker_input input long_input" type="password" placeholder="New Password" required autocomplete="true">
+                    <input id="change_pass-new_confirm" class="darker_input input long_input" type="password" placeholder="Confirm New Password" required autocomplete="false">
                 </div>
                 <div class="buttons">
                     <button type="submit" class="red">Log Out</button>
@@ -33,79 +33,50 @@
         </div>
         <div class="section item-section" name="item manip">
             <div class="tabs" name="tabs">
-                <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_create" selected>New <shadow></shadow></a>
-                <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_edit">Edit <shadow></shadow></a>
+                <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_edit" selected>Create / Edit <shadow></shadow></a>
                 <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_remove">Delete <shadow></shadow></a>
             </div>
             <header>
-                Items - <a id="tab_name">New</a>
+                Items - <a id="tab_name">Create / Edit</a>
             </header>
-            <div id="tab_create">
-                <form id="create_item" onsubmit="newItem(event, false)" onchange="reloadPreview(false)">
+            <div id="tab_edit">
+                <form id="edit_item" onsubmit="newItem(event)" onchange="reloadPreview()">
                     <section>
-                        <input id="create_item-name" type="text" placeholder="Item Name" required>
-                        <input id="create_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
-                        <div>
+                        <div class="separated_group">
+                        <label class="form_label">Name</label>
+                        <input id="edit_item-name" class="input long_input" type="text" placeholder="Item Name" required>
+                    </div>
+                        <div class="separated_group">
                             <label class="form_label">Image</label>
-                            <div>
-                                <input id="create_item-image" type="text" placeholder="Image URL" required>
-                                <label for="create_item-pixelized">Pixelized?</label>
-                                <input id="create_item-pixelized" type="checkbox">
+                            <div class="pixelized_div">
+                                <input id="edit_item-image" class="input short_input" type="text" placeholder="Image URL" required>
+                                <div>
+                                    <label for="edit_item-pixelized">Pixelized?</label>                                        
+                                    <input id="edit_item-pixelized" type="checkbox">
+                                </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="separated_group">
                             <label class="form_label">Prices</label>
                             <div>
-                                <input id="create_item-cost_fcs" type="number" placeholder="FCS Cost" min="0" required>
-                                /
-                                <input id="create_item-per_fcs" type="number" placeholder="Per Item" min="0" required>
+                                <input id="edit_item-cost_fcs" class="input short_input" type="number" placeholder="FCS Cost" min="0" required>
+                                <a class="slash">/</a>
+                                <input id="edit_item-per_fcs" class="input short_input"  type="number" placeholder="Per Item" min="0" required>
                             </div>
                             <div>
-                                <input id="create_item-cost_diamond" type="number" placeholder="Diamond Cost" min="0" required>
-                                /
-                                <input id="create_item-per_diamond" type="number" placeholder="Per Item" min="0" required>
+                                <input id="edit_item-cost_diamond" class="input short_input" type="number" placeholder="Diamond Cost" min="0" required>
+                                <a class="slash">/</a>
+                                <input id="edit_item-per_diamond" class="input short_input" type="number" placeholder="Per Item" min="0" required>
                             </div>
+                            <input id="edit_item-max" class="input long_input" type="number" placeholder="Max amount to buy (Blank for no max)">
+
                         </div>
                     </section>
-                    <section>
+                    <section class="separated_group" class="preview_section">
                         <label class="form_label">Preview</label>
-                        <generated type="item_panel-edit"></generated>
+                        <generated type="item_panel-edit" generated></generated>
                     </section>
-                    <button type="submit" class="blue bottom_button">Create Item</button>
-                </form>
-            </div>
-            <div id="tab_edit" hidden>
-                <form id="edit_item" onsubmit="newItem(event, true)" onchange="reloadPreview(true)">
-                    <section>
-                        <input id="edit_item-name" type="text" placeholder="Item Name" required>
-                        <input id="edit_item-max" type="text" placeholder="Max amount to buy (Blank for no max)">
-                        <div>
-                            <label class="form_label">Image</label>
-                            <div>
-                                <input id="edit_item-image" type="text" placeholder="Image URL" required>
-                                <label for="edit_item-pixelized">Pixelized?</label>
-                                <input id="edit_item-pixelized" type="checkbox">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="form_label">Prices</label>
-                            <div>
-                                <input id="edit_item-cost_fcs" type="number" placeholder="FCS Cost" min="0" required>
-                                /
-                                <input id="edit_item-per_fcs" type="number" placeholder="Per Item" min="0" required>
-                            </div>
-                            <div>
-                                <input id="edit_item-cost_diamond" type="number" placeholder="Diamond Cost" min="0" required>
-                                /
-                                <input id="edit_item-per_diamond" type="number" placeholder="Per Item" min="0" required>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <label class="form_label">Preview</label>
-                        <generated type="item_panel-edit"></generated>
-                    </section>
-                    <button type="submit" class="blue bottom_button">Edit Item</button>
+                    <button type="submit" class="blue bottom_button">Create / Edit Item</button>
                 </form>
             </div>
             <div id="tab_remove" hidden>
@@ -113,7 +84,10 @@
                 <button type="submit" class="red bottom_button">Remove Item(s)</button>
             </div>
         </div>
-        <div class="section order-section" name="orders">
+        <div class="section order-section" name="orders">            
+            <header>
+                Orders
+            </header>
             <table>
                 <thead>
                     <td>Complete </td>

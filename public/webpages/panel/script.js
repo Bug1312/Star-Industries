@@ -22,21 +22,20 @@ function passChange(ev) {
     else alert("Passwords don't match");
 }
 
-function newItem(ev, edit = false) {
+function newItem(ev) {
     ev.preventDefault();
 
-    let type = edit ? 'create_item' : 'edit_item',
-        name = document.getElementById(`${type}-name`).value,
-        image_URL = document.getElementById(`${type}-img`).value,
-        pixelated = document.getElementById(`${type}-pixelized`).checked,
-        max = document.getElementById(`${type}-max`).value,
+    let name = document.getElementById('edit_item-name').value,
+        image_URL = document.getElementById('edit_item-image').value,
+        pixelated = document.getElementById('edit_item-pixelized').checked,
+        max = document.getElementById('edit_item-max').value,
         cost = {
-            fcs: document.getElementById(`${type}-cost_fcs`).value,
-            diamond: document.getElementById(`${type}-cost_diamond`).value
+            fcs: document.getElementById('edit_item-cost_fcs').value,
+            diamond: document.getElementById('edit_item-cost_diamond').value
         },
         per_item = {
-            fcs: document.getElementById(`${type}-per_fcs`).value,
-            diamond: document.getElementById(`${type}-per_diamond`).value
+            fcs: document.getElementById('edit_item-per_fcs').value,
+            diamond: document.getElementById('edit_item-per_diamond').value
         }
 
     fetch("/post-item", {
@@ -58,19 +57,19 @@ function newItem(ev, edit = false) {
     });
 }
 
-function reloadPreview(edit = false) {
-    let type = edit ? 'create_item' : 'edit_item',
-        name = document.getElementById(`${type}-name`).value,
-        image_URL = document.getElementById(`${type}-max`).value,
-        pixelated = document.getElementById(`${type}-image`).checked,
-        max = document.getElementById(`${type}-pixelized`).value,
+function reloadPreview() {
+    let
+        name = document.getElementById('edit_item-name').value,
+        image_URL = document.getElementById('edit_item-image').value,
+        pixelated = document.getElementById('edit_item-pixelized').checked,
+        max = document.getElementById('edit_item-max').value,
         cost = {
-            fcs: document.getElementById(`${type}-cost_fcs`).value,
-            diamond: document.getElementById(`${type}-cost_diamond`).value,
+            fcs: document.getElementById('edit_item-cost_fcs').value,
+            diamond: document.getElementById('edit_item-cost_diamond').value,
         },
         per_item = {
-            fcs: document.getElementById(`${type}-cost_diamond`).value,
-            diamond: document.getElementById(`${type}-per_diamond`).value,
+            fcs: document.getElementById('edit_item-per_fcs').value,
+            diamond: document.getElementById('edit_item-per_diamond').value,
         },
         previews = document.querySelectorAll('generated[type="item_panel-edit"]')
 
@@ -119,6 +118,23 @@ function swapTap(tab) {
     window.onload = function() {
         oldLoad();
         generateContent('/get-items', '/webpages/shared/generated/item_panel-remove.html', 'item_panel-remove');
+        reloadPreview();
 
+        document.getElementById('edit_item-name').onkeyup = reloadPreview;
+        document.getElementById('edit_item-max').onkeyup = reloadPreview;
+        document.getElementById('edit_item-pixelized').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_fcs').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
+        document.getElementById('edit_item-per_diamond').onkeyup = reloadPreview;
+
+        document.getElementById('edit_item-image').onkeyup = reloadPreview;
+        document.getElementById('edit_item-name').onkeyup = reloadPreview;
+        document.getElementById('edit_item-max').onkeyup = reloadPreview;
+        document.getElementById('edit_item-pixelized').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_fcs').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
+        document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
+        document.getElementById('edit_item-per_diamond').onkeyup = reloadPreview;
     }
 })();

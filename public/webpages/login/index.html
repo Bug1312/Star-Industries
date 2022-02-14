@@ -3,25 +3,49 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Login</title>
-    <link href="/webpages/fcs/style.css" rel="stylesheet">
+    <title>Star Industries Staff Panel</title>
+    <link href="/webpages/shared/nav.css" rel="stylesheet">
+    <link href="/webpages/shared/style.css" rel="stylesheet">
+    <link href="/webpages/panel/style.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Star Industries Online" />
-    <meta property="og:url" content="http://starindustries.online/" />
-    <meta property="og:image" content="/images/logo.png" />
-    <meta name="theme-color" content="#D2B48C">
-    <script type="text/javascript" src="/webpages/login/script.js"></script>
 </head>
 
 <body>
-    <form onsubmit="loginAttempt(event)">
-        <input id="username" type="minecraft-username" placeholder="Username">
-        <input id="password" type="password" placeholder="Password">
-        <button type="submit">Log In</button>
-    </form>
+    <imported type="nav_staff"></imported>
+
+    <main>
+        <div class="section">
+            <header>Change Password</header>
+            <form id="change_pass" onsubmit="loginAttempt(event)">
+                <div class="column-inputs">
+                    <input id="login-username" class="darker_input input long_input" type="minecraft-username" placeholder="Username">
+                    <input id="login-password" class="darker_input input long_input" type="password" placeholder="Password">
+                                </div>
+                <div class="buttons">
+                    <button type="submit" class="blue">Log In</button>
+                </div>
+            </form>
+        </div>
+        <div class="section item-section">
+            <div class="tabs">
+                <a selected>Create / Edit <shadow></shadow></a>
+                <a>Delete <shadow></shadow></a>
+            </div>
+            <div class="locked">
+                <span class="material-icons-outlined"> lock </span>
+               </div>
+        </div>
+        <div class="section order-section" >
+           <div class="locked">
+            <span class="material-icons-outlined"> lock </span>
+           </div>
+        </div>
+    </main>
+
 </body>
+
+<script src="/webpages/shared/script.js" type="text/javascript"></script>
+<script type="text/javascript" src="/webpages/login/script.js"></script>
 
 </html>
