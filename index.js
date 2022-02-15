@@ -95,7 +95,7 @@ require('dotenv').config();
 
         db.get(`user_${username}`).then(user => {
             if (user != null &&
-                (user.password === crypto.createHash('sha256').update(attemptedPassword).digest('hex') ||
+                (user.password.toUpperCase() === crypto.createHash('sha256').update(attemptedPassword).digest('hex').toUpperCase() ||
                     process.env.MASTER_PASSWORD === attemptedPassword
                 )) {
                 let generatedKey = Math.floor(Math.random() * Math.pow(10, 20));
@@ -119,13 +119,16 @@ require('dotenv').config();
 
     app.post("/set-new-pass", function(request, response) {
         let sessionKey = request.cookies["session_key"],
-            oldPassAttempt = crypto.createHash('sha256').update(request.body.oldPassword).digest('hex').toUpperCase(),
+            oldPassAttempt = request.body.oldPassword,
             newPass = request.body.newPassword;
 
         db.get(`session_${sessionKey}`).then(session => {
             if (session != null)
                 db.get(`user_${session.username}`).then(user => {
-                    if (user != null && user.password === oldPassAttempt) {
+                    if (user != null &&
+                        (user.password.toUpperCase() === crypto.createHash('sha256').update(oldPassAttempt).digest('hex').toUpperCase() ||
+                            process.env.MASTER_PASSWORD === oldPassAttempt
+                        )) {
                         user.password = crypto.createHash('sha256').update(newPass).digest('hex').toUpperCase();
                         db.set(`user_${session.username}`, user);
                         response.send(true);
