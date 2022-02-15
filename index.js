@@ -168,9 +168,29 @@ require('dotenv').config();
                     } else response.send(false);
                 });
             else response.send(false);
-        })
+        })       
+    });
 
-       
+    app.post('/remove-items', function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    if (user != null && user.perms.includes('delete')) {
+                        console.log(`${user.username} has deleted these items:`);
+                        console.log(request.body);
+                        request.body.forEach(item => {
+                            db.get(`item_${item}`).then(itemData=>{
+                                if(itemData) db.delete(`item_${item}`);
+                            })
+                        });
+
+                        response.send(true);
+                    } else response.send(false);
+                });
+            else response.send(false);
+        })      
     });
 
     app.post("/get-items", function(request, response) {
@@ -195,6 +215,18 @@ require('dotenv').config();
             }
             return tempArray;
         }).then(items=>response.send(JSON.stringify(items)));;
+    });
+
+    app.post("/get-self", function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    delete user.password;
+                    response.send([user]);
+                });
+            else response.send(undefined);
+        });
     });
 }
 

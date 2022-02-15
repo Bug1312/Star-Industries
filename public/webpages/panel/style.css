@@ -176,6 +176,10 @@ button.blue:focus {
     height: 80%;
 }
 
+#remove_item {
+    height: 100%;
+}
+
 .bottom_button {
     position: absolute;
     bottom: 10px;
@@ -187,7 +191,7 @@ button.blue:focus {
     overflow-y: scroll;
     display: grid;
     grid-auto-rows: max-content;
-    grid-template-columns: repeat(4, min-content 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .remove_item-checkbox {
@@ -230,7 +234,9 @@ button.blue:focus {
 
 .item:hover,
 .item:visited {
-    transform: scale(1);
+    transform: initial;
+    background-color: rgb(213 210 212);
+    cursor: initial;
 }
 
 .locked {
@@ -252,4 +258,10 @@ button.blue:focus {
     width: 97%;
     height: 100%;
     top:-30px;
+}
+
+.remove_item_div {
+    grid-template-columns: min-content 1fr;
+    display: grid;
+    flex-direction: row;
 }

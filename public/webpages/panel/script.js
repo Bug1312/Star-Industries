@@ -52,8 +52,27 @@ function newItem(ev) {
             per_item
         })
     }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
-        if (response) alert("Item Created")
-        else alert("Invalid Item")
+        if (response) alert("Item Created");
+        else alert("Invalid Item");
+    });
+}
+
+function deleteItems(event) {
+    event.preventDefault();
+
+    let items = [];
+
+    document.querySelectorAll('#remove_item input[type=checkbox]:checked').forEach(item => {
+        items.push(item.id.replace(/^remove-item-generated_/,''));
+    });
+
+    fetch("/remove-items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(items)
+    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+        if (response) alert("Item(s) Deleted");
+        else alert("You do not have permissions!");
     });
 }
 
@@ -119,6 +138,9 @@ function swapTap(tab) {
         oldLoad();
         generateContent('/get-items', '/webpages/shared/generated/item_panel-remove.html', 'item_panel-remove');
         reloadPreview();
+
+        generateContent('/get-self', '/webpages/shared/generated/nav_staff.html', 'nav_staff');
+        generateContent('/get-self', '/webpages/shared/generated/staff_item_tabs.html', 'tabs', true, true);
 
         document.getElementById('edit_item-name').onkeyup = reloadPreview;
         document.getElementById('edit_item-max').onkeyup = reloadPreview;

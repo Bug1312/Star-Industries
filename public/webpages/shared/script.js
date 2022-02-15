@@ -20,14 +20,15 @@ async function importContents() {
 function generateContent(fetchURL, htmlURL, type, post = true) {
     if(document.querySelectorAll(`[type=${type}][generated]`).length > 0)
         fetch(fetchURL, { method: post? 'POST':'GET' }).then(res => res.text()).then(text => JSON.parse(text)).then(contents => {
-            fetch(htmlURL).then(res => res.text()).then(generatedHTML => {
-                let replaced = document.querySelectorAll(`[type=${type}][generated]`);
+            if(contents != undefined)
+                fetch(htmlURL).then(res => res.text()).then(generatedHTML => {
+                    let replaced = document.querySelectorAll(`[type=${type}][generated]`);
 
-                for(element of replaced) {
-                    for(data of contents) { element.innerHTML += replaceValues(data, generatedHTML) };
-                };
+                    for(element of replaced) {
+                        for(data of contents) { element.innerHTML += replaceValues(data, generatedHTML) };
+                    };
 
-            });
+                });
         })
 }
 
@@ -50,6 +51,13 @@ function replaceValues(item, generatedHTML, extraData = {}) {
                     return Infinity;
             };
         return value;
+    }).replaceAll(/\$\([^)]*\)/g, match => {
+        let fullKey = match.replaceAll(/(^\$\(|\)$)/g, ''),
+            lastDot = fullKey.lastIndexOf('.'),
+            arrName = fullKey.substr(0,lastDot),
+            key = fullKey.substr(lastDot + 1);
+
+        return recursiveValue(item, arrName).includes(key);
     });
 }
 

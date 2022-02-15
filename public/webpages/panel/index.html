@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <imported type="nav_staff"></imported>
+    <nav type="nav_staff" class="nav" generated></nav>
 
     <main>
         <div class="section" name="login / change pass">
@@ -32,10 +32,7 @@
             </form>
         </div>
         <div class="section item-section" name="item manip">
-            <div class="tabs" name="tabs">
-                <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_edit" selected>Create / Edit <shadow></shadow></a>
-                <a onclick="swapTap(this)" onkeypress="swapTap(this)" tabindex="0" for="tab_remove">Delete <shadow></shadow></a>
-            </div>
+            <div class="tabs" generated type="tabs"></div>
             <header>
                 Items - <a id="tab_name">Create / Edit</a>
             </header>
@@ -69,7 +66,6 @@
                                 <input id="edit_item-per_diamond" class="input short_input" type="number" placeholder="Per Item" min="0" required>
                             </div>
                             <input id="edit_item-max" class="input long_input" type="number" placeholder="Max amount to buy (Blank for no max)">
-
                         </div>
                     </section>
                     <section class="separated_group" class="preview_section">
@@ -80,8 +76,10 @@
                 </form>
             </div>
             <div id="tab_remove" hidden>
+                <form id="remove_item" onsubmit="deleteItems(event)">
                 <div class="remove_grid" type="item_panel-remove" generated></div>
                 <button type="submit" class="red bottom_button">Remove Item(s)</button>
+            </form>
             </div>
         </div>
         <div class="section order-section" name="orders">            

@@ -7,7 +7,7 @@ body {
     font-family: 'Bebas Neue';
 }
 
-*[pixelated=true],
+[pixelated=true],
 .diamond_inline img {
     -ms-interpolation-mode: nearest-neighbor;
     image-rendering: -webkit-optimize-contrast;
@@ -15,6 +15,10 @@ body {
     image-rendering: -o-pixelated;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+}
+
+[visible=false] {
+    display: none;
 }
 
 .diamond_inline {
