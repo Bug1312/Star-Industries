@@ -10,16 +10,10 @@ const express = require("express"),
 
 const botData = {
     "channels": {
-        "orders": "630438938464485387"
+        "orders": "933191055107571732"
     },
-    "ping_user": "566630859772526627"
+    "ping_user": "542241353325871105"
 }
-// const botData = {
-//     "channels": {
-//         "orders": "933191055107571732"
-//     },
-//     "ping_user": "542241353325871105"
-// }
 
 require('dotenv').config();
 
