@@ -6,8 +6,8 @@ function loginAttempt(event) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            user: document.getElementById('username').value,
-            password: document.getElementById('password').value
+            user: document.getElementById('login-username').value,
+            password: document.getElementById('login-password').value
         })
     }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
         console.log(response)

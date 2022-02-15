@@ -3,51 +3,108 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Star Staff Panel</title>
-    <link href="/webpages/main/style.css" rel="stylesheet">
+    <title>Star Industries Staff Panel</title>
+    <link href="/webpages/shared/nav.css" rel="stylesheet">
+    <link href="/webpages/shared/item.css" rel="stylesheet">
+    <link href="/webpages/shared/style.css" rel="stylesheet">
+    <link href="/webpages/panel/style.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="/webpages/panel/script.js" type="text/javascript"></script>
-
-    <style>
-        form {
-            width:100%;display:block;color:black;font-size: 1rem;position: static;transform: none;
-        }
-    </style>
 </head>
 
-
-
 <body>
-    <form onsubmit="passChange(event)">
-        <input id="form_pass-old_pass" type="password" placeholder="Old Password">
-        <input id="form_pass-new_pass" type="password" placeholder="New Password">
-        <input id="form_pass-new_pass_confirm" type="password" placeholder="Confirm New Password">
-        <button type="submit">Change Pass</button>
-    </form>
-    <form onsubmit="newItem(event)" onchange="updatePreview()">
-        <br />
-        <input id="form_item-name" type="text" placeholder="Item Name">
-        <input id="form_item-max" type="number" step="1" placeholder="Max Amount (Leave blank for infinity)">
+    <nav type="nav_staff" class="nav" generated></nav>
 
-        <br />
-        <input id="form_item-img" type="text" placeholder="Item image URL">
-        <input id="form_item-pixelized" type="checkbox">
-        Pixelized?
-        <br />
-        <input id="form_item-fcs_cost" type="number" step="1" placeholder="FCS Cost">
-         / 
-        <input id="form_item-fcs_per" type="number" step="1" placeholder="Per this number">
-        <br />
-        <input id="form_item-diamond_cost" type="number" step="1" placeholder="Diamond Cost">
-         / 
-        <input id="form_item-diamond_per" type="number" step="1" placeholder="Per this number">
-        <br />
-        <button type="submit">Create Item</button>
-    </form>
+    <main>
+        <div class="section" name="login / change pass">
+            <header>Change Password</header>
+            <form id="change_pass" onsubmit="passChange(event)">
+                <div class="column-inputs">
+                    <input id="change_pass-old" class="darker_input input long_input" type="password" placeholder="Old Password" required autocomplete="true">
 
-    <div id="preview"></div>
+                    <input id="change_pass-new" class="darker_input input long_input" type="password" placeholder="New Password" required autocomplete="true">
+                    <input id="change_pass-new_confirm" class="darker_input input long_input" type="password" placeholder="Confirm New Password" required autocomplete="false">
+                </div>
+                <div class="buttons">
+                    <!-- <button type="submit" class="red">Log Out</button> -->
+                    <button type="submit" class="blue">Change Password</button>
+                </div>
+            </form>
+        </div>
+        <div class="section item-section" name="item manip">
+            <div class="tabs" generated type="tabs"></div>
+            <header>
+                Items - <a id="tab_name">Create / Edit</a>
+            </header>
+            <div id="tab_edit">
+                <form id="edit_item" onsubmit="newItem(event)" onchange="reloadPreview()">
+                    <section>
+                        <div class="separated_group">
+                        <label class="form_label">Name</label>
+                        <input id="edit_item-name" class="input long_input" type="text" placeholder="Item Name" required>
+                    </div>
+                        <div class="separated_group">
+                            <label class="form_label">Image</label>
+                            <div class="pixelized_div">
+                                <input id="edit_item-image" class="input short_input" type="text" placeholder="Image URL" required>
+                                <div>
+                                    <label for="edit_item-pixelized">Pixelized?</label>                                        
+                                    <input id="edit_item-pixelized" type="checkbox">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separated_group">
+                            <label class="form_label">Prices</label>
+                            <div>
+                                <input id="edit_item-cost_fcs" class="input short_input" type="number" placeholder="FCS Cost" min="0" required>
+                                <a class="slash">/</a>
+                                <input id="edit_item-per_fcs" class="input short_input"  type="number" placeholder="Per Item" min="0" required>
+                            </div>
+                            <div>
+                                <input id="edit_item-cost_diamond" class="input short_input" type="number" placeholder="Diamond Cost" min="0" required>
+                                <a class="slash">/</a>
+                                <input id="edit_item-per_diamond" class="input short_input" type="number" placeholder="Per Item" min="0" required>
+                            </div>
+                            <input id="edit_item-max" class="input long_input" type="number" placeholder="Max amount to buy (Blank for no max)">
+                        </div>
+                    </section>
+                    <section class="separated_group" class="preview_section">
+                        <label class="form_label">Preview</label>
+                        <generated type="item_panel-edit" generated></generated>
+                    </section>
+                    <button type="submit" class="blue bottom_button">Create / Edit Item</button>
+                </form>
+            </div>
+            <div id="tab_remove" hidden>
+                <form id="remove_item" onsubmit="deleteItems(event)">
+                <div class="remove_grid" type="item_panel-remove" generated></div>
+                <button type="submit" class="red bottom_button">Remove Item(s)</button>
+            </form>
+            </div>
+        </div>
+        <div class="section order-section" name="orders">            
+            <header>
+                Orders - Coming Soon
+            </header>
+            <!-- <table>
+                <thead>
+                    <td>Complete </td>
+                    <td>Reserve </td>
+                    <td>IGN </td>
+                    <td>Item </td>
+                    <td>Amount </td>
+                    <td>Coordinates </td>
+                    <td>Payment </td>
+                    <td>Reserved To </td>
+                </thead>
+                <tbody type="item_panel-complete" generated></tbody>
+            </table> -->
+        </div>
+    </main>
+
 </body>
+
+<script src="/webpages/shared/script.js" type="text/javascript"></script>
+<script src="/webpages/panel/script.js" type="text/javascript"></script>
 
 </html>

@@ -8,7 +8,12 @@ const express = require("express"),
     db = new Database(),
     bot = new Discord.Client();
 
-const botData = require(__dirname + "/public/data/bot.json");
+const botData = {
+    "channels": {
+        "orders": "933191055107571732"
+    },
+    "ping_user": "542241353325871105"
+}
 
 require('dotenv').config();
 
@@ -23,6 +28,11 @@ require('dotenv').config();
 
     app.listen(process.env.PORT, () => {
         console.log(`HTTP RUNNING`);
+        db.list('session').then(sessions => {
+            sessions.forEach(session => {
+                db.delete(session);
+            });
+        });
     });
 }
 
@@ -66,9 +76,11 @@ require('dotenv').config();
 {
     app.post("/post-order", function(request, response) {
         if (request.body.item != undefined)
-            bot.channels.cache.get(botData.channels.orders).send(createOrderMessage(request.body)).then(m => {
+        createOrderMessage(request.body).then(msg => {
+            bot.channels.cache.get(botData.channels.orders).send(msg).then(_ => {
                 response.sendStatus(200);
             });
+        })
     });
 
     app.post("/post-login", function(request, response) {
@@ -77,7 +89,7 @@ require('dotenv').config();
 
         db.get(`user_${username}`).then(user => {
             if (user != null &&
-                (user.password === crypto.createHash('sha256').update(attemptedPassword).digest('hex') ||
+                (user.password.toUpperCase() === crypto.createHash('sha256').update(attemptedPassword).digest('hex').toUpperCase() ||
                     process.env.MASTER_PASSWORD === attemptedPassword
                 )) {
                 let generatedKey = Math.floor(Math.random() * Math.pow(10, 20));
@@ -101,13 +113,16 @@ require('dotenv').config();
 
     app.post("/set-new-pass", function(request, response) {
         let sessionKey = request.cookies["session_key"],
-            oldPassAttempt = crypto.createHash('sha256').update(request.body.oldPassword).digest('hex').toUpperCase(),
+            oldPassAttempt = request.body.oldPassword,
             newPass = request.body.newPassword;
 
         db.get(`session_${sessionKey}`).then(session => {
             if (session != null)
                 db.get(`user_${session.username}`).then(user => {
-                    if (user != null && user.password === oldPassAttempt) {
+                    if (user != null &&
+                        (user.password.toUpperCase() === crypto.createHash('sha256').update(oldPassAttempt).digest('hex').toUpperCase() ||
+                            process.env.MASTER_PASSWORD === oldPassAttempt
+                        )) {
                         user.password = crypto.createHash('sha256').update(newPass).digest('hex').toUpperCase();
                         db.set(`user_${session.username}`, user);
                         response.send(true);
@@ -150,47 +165,71 @@ require('dotenv').config();
                     } else response.send(false);
                 });
             else response.send(false);
-        })
+        })       
+    });
 
-       
+    app.post('/remove-items', function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    if (user != null && user.perms.includes('delete')) {
+                        console.log(`${user.username} has deleted these items:`);
+                        console.log(request.body);
+                        request.body.forEach(item => {
+                            db.get(`item_${item}`).then(itemData=>{
+                                if(itemData) db.delete(`item_${item}`);
+                            })
+                        });
+
+                        response.send(true);
+                    } else response.send(false);
+                });
+            else response.send(false);
+        })      
     });
 
     app.post("/get-items", function(request, response) {
-        let tempArray = [];
         db.list("item").then(items => {
-            items.forEach(dbKey => {
+            let tempArray = [];
+            for(dbKey of items) {
                 db.get(dbKey).then(item => {
                     tempArray.push(item);
                 });
-            });
-        });
-
-        setTimeout(() => {
-            response.send(JSON.stringify(tempArray));
-        }, 10);
+            }
+            return tempArray;
+        }).then(items=>response.send(JSON.stringify(items)));
     });
 
     app.post("/get-employees", function(request, response) {
-        let tempArray = [];
         db.list("user").then(users => {
-            users.forEach(dbKey => {
+            let tempArray = [];
+            for(dbKey of users) {
                 db.get(dbKey).then(user => {
-                    tempArray.push(user.username);
+                    tempArray.push({name:user.username});
                 });
-            });
-        });
+            }
+            return tempArray;
+        }).then(items=>response.send(JSON.stringify(items)));;
+    });
 
-        setTimeout(() => {
-            response.send(tempArray);
-        }, 10);
+    app.post("/get-self", function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`user_${session.username}`).then(user => {
+                    delete user.password;
+                    response.send([user]);
+                });
+            else response.send(undefined);
+        });
     });
 }
 
 // Helper Functions
-{
-
     function createOrderMessage(order) {
-        db.get(`item_${order.item}`).then(item => {
+        return db.get(`item_${order.item}`).then(item => {
             let data = {
                 ign: order.ign,
                 location: order.location,
@@ -216,9 +255,7 @@ require('dotenv').config();
         });
     };
 
-}
-
 // Start bot
 {
-    // bot.login(process.env.TOKEN);
+    bot.login(process.env.TOKEN);
 }

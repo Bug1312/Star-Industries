@@ -5,6 +5,10 @@
     <meta charset="utf-8">
     <title>Star Industries</title>
     <link href="/webpages/main/style.css" rel="stylesheet">
+    <link href="/webpages/shared/style.css" rel="stylesheet">
+    <link href="/webpages/shared/item.css" rel="stylesheet">
+    <link href="/webpages/shared/nav.css" rel="stylesheet">
+    <link href="/webpages/shared/footer.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,14 +19,8 @@
     <meta name="theme-color" content="#D2B48C">
 </head>
 
-<body onload="generateContent()">
-    <nav class="nav">
-        <a class="nav-anchor" href="/">
-            <img class="nav-logo" src="/images/logo.png" pixelated="true" />
-            <p class="nav-title">StarIndustries.online</p>
-        </a>
-        <a href="/employees" class="nav-anchor nav-anchor-right nav-title">Employees</a>
-    </nav>
+<body>
+    <imported type="nav"></imported>
 
     <overlay class="overlay" open="false">
         <form id="delivery-form" class="detail-form" autocomplete="on" onsubmit="sendOrder(event)">
@@ -60,9 +58,12 @@
         </form>
     </overlay>
 
-    <main class="main" id="items"></main>
+    <main class="main" type="items_main" generated></main>
+
+    <imported type="footer"></imported>
 </body>
 
 <script src="/webpages/main/script.js" type="text/javascript"></script>
+<script src="/webpages/shared/script.js" type="text/javascript"></script>
 
 </html>

@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+body {
+    background-color: hsl(180, 100%, 48%);
+    margin: 0;
+    font-family: 'Bebas Neue';
+}
+
+[pixelated=true],
+.diamond_inline img {
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-pixelated;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+[visible=false] {
+    display: none;
+}
+
+.diamond_inline {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.diamond_inline img {
+    height: 13px;
+    width: 12px;
+    display: inline-block;
+    margin: auto 2px 4px 2px;
+    content: url(/images/diamond_icon.png);
+}

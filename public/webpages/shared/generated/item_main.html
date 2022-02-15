@@ -1,4 +1,4 @@
-<div class="item" onclick="openPopup(this)">
+<div class="item" onclick="openPopup(this)" >
     <div class="item_popup" closed>
         <p class="item_popup-name">%(name)</p>
         <p class="item_popup-fcs"> <a href="/fcs">$%(cost.fcs)FCS</a> per %(per_item.fcs) Item(s)</p>
@@ -9,7 +9,7 @@
             </a>
             <p class="total-diamond diamond_inline" calc="%(cost.diamond)/%(per_item.diamond)"> %(cost.diamond) <img /></p>
         </div>
-        <input class="item_popup-amount" type="number" value="1" min="1" max="%(max)" onchange="updateCosts(this)" />
+        <input class="item_popup-amount" type="number" value="1" min="1" max="%(max)" onchange="updateCosts(this)" onload="updateCosts(this)"/>
         <button class="item_popup-buy" onclick="openForm(this.parentElement.parentElement)">Buy</button>
     </div>
     <img class="item-image" src="%(image_URL)" pixelated="%(pixelated)" />

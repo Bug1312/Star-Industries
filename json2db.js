@@ -8,7 +8,8 @@ const employees = require(__dirname + "/public/data/employees.json");
 employees.forEach(username => {
     db.set(`user_${username}`, {
         username,
-        password: crypto.createHash('sha256').update("password").digest('hex').toUpperCase()
+        password: crypto.createHash('sha256').update("password").digest('hex').toUpperCase(),
+        perms: ['create']
     })
 });
 

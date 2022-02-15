@@ -1,0 +1,124 @@
+
+.item {
+    transform: scale(1);
+    width: 200px;
+    border: outset 5px;
+    background-color: rgb(213 210 212);
+    height: 260px;
+    box-sizing: border-box;
+    transition: 50ms ease-out;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 75%);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+    overflow-y: hidden;
+}
+
+.item_popup-total p {
+    display: inline;
+}
+
+.item_popup-total .diamond_inline img {
+    transform: scale(1.9);
+    margin-left: 8px;
+}
+
+
+.item:hover,
+.item:active,
+.item[forcePress] {
+    background-color: rgb(211, 203, 208);
+    cursor: pointer;
+    transform: scale(0.99);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+.item[forcePress] .item_popup-diamond img {
+    transform: scale(1.01);
+}
+
+.item-name {
+    font-size: 1.4rem;
+}
+
+.item_popup[closed] {
+    transform: translateY(-275px);
+}
+
+.item_popup {
+    cursor: initial;
+    transform: translateY(-15px);
+    position: absolute;
+    box-sizing: border-box;
+    width: 190px;
+    background-color: rgb(223, 221, 222);
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    transition: 500ms cubic-bezier(0.7, 1.6, 0.52, 0.75);
+}
+
+.item_popup-amount {
+    margin-bottom: 7px;
+    border: none;
+    padding: 5px 10px;
+    color: black;
+    background-color: rgb(144, 251, 255);
+    font-family: 'Oswald';
+    font-size: 1.2rem;
+    transition: 300ms ease;
+    text-align: right;
+    outline: 1px solid black;
+    border-radius: 4px;
+}
+
+
+.item_popup-buy {
+    margin-top: auto;
+    border: none;
+    padding: 5px 10px;
+    background-color: rgb(53, 191, 145);
+    color: white;
+    font-family: 'Oswald';
+    font-size: 1.2rem;
+    transition: 300ms ease;
+    border-radius: 6px;
+    border-bottom: 3px solid hsl(160, 57%, 26%);
+}
+
+.item_popup-buy:hover {
+    cursor: pointer;
+    border-bottom: none;
+}
+
+.item-image {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 10px;
+}
+
+.item p,
+.item_popup p {
+    font-family: 'Bebas Neue';
+    color: black;
+    margin: 0;
+}
+
+.item_popup a,
+.item_popup a p,
+.item_popup a:visited {
+    color:blue;
+}
+
+.item_popup-name,
+.item_popup-total {
+    font-size: 1.6rem;
+}
+
+.item-costs {
+    margin-top: auto;
+}
