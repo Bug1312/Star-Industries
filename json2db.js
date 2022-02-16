@@ -6,10 +6,12 @@ const items = require(__dirname + "/public/data/items.json");
 const employees = require(__dirname + "/public/data/employees.json");
 
 employees.forEach(username => {
-    db.set(`user_${username}`, {
-        username,
-        password: crypto.createHash('sha256').update("password").digest('hex').toUpperCase(),
-        perms: ['create']
+    db.get(`user_${username}`).then(user => {
+        db.set(`user_${username}`, {
+            username,
+            password: (user != undefined)? user.password : crypto.createHash('sha256').update("password").digest('hex').toUpperCase(),
+            perms: ['create']
+        })
     })
 });
 
