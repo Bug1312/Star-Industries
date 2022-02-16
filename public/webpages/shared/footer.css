@@ -1,5 +1,4 @@
 footer {
-    margin-top: auto;
     width: 100%;
     text-align: center;
     height: 3rem;
@@ -7,8 +6,6 @@ footer {
     align-items: center;
     justify-content: center;
     background-color: hsl(180, 100%, 40%);
-    bottom: 1px;
-    position: absolute;
 }
 
 footer a, footer a:visited {
