@@ -3,7 +3,7 @@ main {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, 200px);
-    place-content: center;
+    justify-content: center;
 }
 
 /* FORM BOX */
