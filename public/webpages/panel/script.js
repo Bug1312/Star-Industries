@@ -66,14 +66,15 @@ function deleteItems(event) {
         items.push(item.id.replace(/^remove-item-generated_/,''));
     });
 
-    fetch("/remove-items", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(items)
-    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
-        if (response) alert("Item(s) Deleted");
-        else alert("You do not have permissions!");
-    });
+    if(items.length > 0)
+        fetch("/remove-items", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(items)
+        }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+            if (response) alert("Item(s) Deleted");
+            else alert("You do not have permissions!");
+        });
 }
 
 function reloadPreview() {

@@ -81,12 +81,37 @@ require('dotenv').config();
 // Fetches
 {
     app.post("/post-order", function(request, response) {
-        if (request.body.item != undefined)
-        createOrderMessage(request.body).then(msg => {
-            bot.channels.cache.get(botData.channels.orders).send(msg).then(_ => {
-                response.sendStatus(200);
+        if (request.body.item != undefined) {
+            let generatedKey = Math.floor(Math.random() * Math.pow(10, 20));
+            db.set(`order_${generatedKey}`, request.body).then(_ => {
+                createOrderMessage(request.body).then(msg => {
+                    bot.channels.cache.get(botData.channels.orders).send(msg).then(_ => {
+                        response.sendStatus(200);
+                    }).catch(err => {
+                        db.delete(`order_${generatedKey}`);
+                        response.sendStatus(200);
+                    });
+                });
             });
-        })
+        };
+    });
+
+    app.post("/get-orders", function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.list("order_").then(items => {
+                    let tempArray = [];
+                    for(dbKey of items) {
+                        db.get(dbKey).then(item => {
+                            tempArray.push(item);
+                        });
+                    }
+                    return tempArray;
+                }).then(items=>response.send(JSON.stringify(items)));
+            else response.send(undefined);
+        })       
     });
 
     app.post("/post-login", function(request, response) {
@@ -148,7 +173,7 @@ require('dotenv').config();
                 db.get(`user_${session.username}`).then(user => {
                     if (user != null) {
 
-                        console.log(`${user.username} has created a new item`);
+                        console.log(`${user.username} has created a new item :`);
                         console.log(request.body);
                         let newItem = {
                             "name": request.body.name,
@@ -197,7 +222,7 @@ require('dotenv').config();
     });
 
     app.post("/get-items", function(request, response) {
-        db.list("item").then(items => {
+        db.list("item_").then(items => {
             let tempArray = [];
             for(dbKey of items) {
                 db.get(dbKey).then(item => {
@@ -209,7 +234,7 @@ require('dotenv').config();
     });
 
     app.post("/get-employees", function(request, response) {
-        db.list("user").then(users => {
+        db.list("user_").then(users => {
             let tempArray = [];
             for(dbKey of users) {
                 db.get(dbKey).then(user => {
