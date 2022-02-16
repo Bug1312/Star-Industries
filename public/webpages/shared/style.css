@@ -5,6 +5,9 @@ body {
     background-color: hsl(180, 100%, 48%);
     margin: 0;
     font-family: 'Bebas Neue';
+    display: grid;
+    grid-template-rows: min-content auto 3rem;
+    height:100vh;
 }
 
 [pixelated=true],
