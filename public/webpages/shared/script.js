@@ -28,6 +28,9 @@ function generateContent(fetchURL, htmlURL, type, post = true) {
                         for(data of contents) { element.innerHTML += replaceValues(data, generatedHTML) };
                     };
 
+                    document.querySelectorAll('.item_popup-amount').forEach(element => {
+                        updateCosts(element);
+                    });
                 });
         })
 }
@@ -65,18 +68,6 @@ function recursiveValue(object, keyString) {
     return new Function('item', `try { return item.${keyString}; } catch(err) { return undefined; }`)(object);
 }
 
-function updateCosts(element) {
-    let parent = element.parentElement,
-        elFCS = parent.querySelector(".total-fcs"),
-        elDiamonds = parent.querySelector(".total-diamond");
-    let amount = Math.ceil(element.value),
-        calcFCS = eval(elFCS.getAttribute("calc")),
-        calcDiamonds = eval(elDiamonds.getAttribute("calc"));
-
-    elFCS.innerHTML = Math.ceil(calcFCS * amount);
-    elDiamonds.innerHTML = Math.ceil(calcDiamonds * amount) + "<img />";
-}
-
 function openPopup(parent) {
     document.querySelectorAll(".item_popup").forEach(element => {
         element.setAttribute("closed", "");
@@ -100,4 +91,16 @@ function closePopup() {
             element.removeAttribute("forcePress", "");
         });
     }, 10);
+}
+
+function updateCosts(element) {
+    let parent = element.parentElement,
+        elFCS = parent.querySelector(".total-fcs"),
+        elDiamonds = parent.querySelector(".total-diamond");
+    let amount = Math.ceil(element.value),
+        calcFCS = eval(elFCS.getAttribute("calc")),
+        calcDiamonds = eval(elDiamonds.getAttribute("calc"));
+
+    elFCS.innerHTML = Math.ceil(calcFCS * amount);
+    elDiamonds.innerHTML = Math.ceil(calcDiamonds * amount) + "<img />";
 }
