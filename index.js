@@ -36,7 +36,7 @@ require('dotenv').config();
         console.log(`HTTP RUNNING`);
         db.list('session').then(sessions => {
             sessions.forEach(session => {
-                db.delete(session);
+                // db.delete(session);
             });
         });
     });
@@ -101,15 +101,24 @@ require('dotenv').config();
 
         db.get(`session_${sessionKey}`).then(session => {
             if (session != null)
-                db.list("order_").then(items => {
+                db.list("order_").then(orders => {
                     let tempArray = [];
-                    for(dbKey of items) {
-                        db.get(dbKey).then(item => {
-                            tempArray.push(item);
-                        });
+                    for(dbKey of orders) {
+                        tempArray.push(
+                            db.get(dbKey).then(order => {
+                                return calculateCost(order).then(total => {
+                                    order.uuid = dbKey.replace('order_','');
+                                    order.total = total;
+                                    return order
+                                })
+                            })
+                        )
                     }
-                    return tempArray;
-                }).then(items=>response.send(JSON.stringify(items)));
+
+                    Promise.all(tempArray).then(result => {
+                        response.send(JSON.stringify(result))
+                    });
+                });
             else response.send(undefined);
         })       
     });
@@ -259,32 +268,29 @@ require('dotenv').config();
 }
 
 // Helper Functions
-    function createOrderMessage(order) {
-        return db.get(`item_${order.item}`).then(item => {
-            let data = {
-                ign: order.ign,
-                location: order.location,
-                item: order.item,
-                amount: order.amount,
-                currency: order.currency
-            };
+function createOrderMessage(order) {
+    return calculateCost(order).then(total => {
+        return [
+            `<@${botData.ping_user}>, Order Incoming!`,
+            `IGN: \`${order.ign}\``,
+            `Item: ${order.item}#${order.amount}`,
+            `Payment: ${(order.currency == "FCS") ? `$${total}FCS`:`${total} Diamond(s)`}`,
+            `Coords: ${order.location}`
+        ].join("\n");
+    });
+};
 
-            if (order.currency == "FCS") {
-                let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
-                data.total = Math.ceil((item.cost.fcs / default_amt) * order.amount)
-            } else {
-                let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
-                data.total = Math.ceil((item.cost.diamond / default_amt) * order.amount)
-            }
-            return [
-                `<@${botData.ping_user}>, Order Incoming!`,
-                `IGN: \`${data.ign}\``,
-                `Item: ${data.item}#${data.amount}`,
-                `Payment: ${(order.currency == "FCS") ? `$${data.total}FCS`:`${data.total} Diamond(s)`}`,
-                `Coords: ${order.location}`
-            ].join("\n");
-        });
-    };
+function calculateCost(orderData) {
+    return db.get(`item_${orderData.item}`).then(item => {
+        if (orderData.currency == "FCS") {
+            let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
+            return Math.ceil((item.cost.fcs / default_amt) * orderData.amount)
+        } else {
+            let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
+            return Math.ceil((item.cost.diamond / default_amt) * orderData.amount)
+        }
+    })
+}
 
 // Start bot
 {

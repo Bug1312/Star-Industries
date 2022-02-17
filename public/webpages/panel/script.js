@@ -143,6 +143,8 @@ function swapTap(tab) {
         generateContent('/get-self', '/webpages/shared/generated/nav_staff.html', 'nav_staff');
         generateContent('/get-self', '/webpages/shared/generated/staff_item_tabs.html', 'tabs', true, true);
 
+        generateContent('/get-orders', '/webpages/shared/generated/item_panel-order.html', 'item_panel-orders');
+
         document.getElementById('edit_item-name').onkeyup = reloadPreview;
         document.getElementById('edit_item-max').onkeyup = reloadPreview;
         document.getElementById('edit_item-pixelized').onkeyup = reloadPreview;

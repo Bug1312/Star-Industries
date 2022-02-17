@@ -265,3 +265,13 @@ button.blue:focus {
     display: grid;
     flex-direction: row;
 }
+
+.orders-div {
+    height: calc(100% - 50px - 30px);
+    overflow-y: scroll;
+    display: grid;
+}
+
+.orders-table tbody {
+    overflow-y: scroll;
+}
