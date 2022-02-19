@@ -31,6 +31,9 @@ function generateContent(fetchURL, htmlURL, type, post = true) {
                     document.querySelectorAll('.item_popup-amount').forEach(element => {
                         updateCosts(element);
                     });
+                    document.querySelectorAll('.reserver-checkbox').forEach(element => {
+                        element.onload();
+                    })
                 });
         })
 }

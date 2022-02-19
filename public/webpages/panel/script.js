@@ -63,17 +63,20 @@ function deleteItems(event) {
     let items = [];
 
     document.querySelectorAll('#remove_item input[type=checkbox]:checked').forEach(item => {
-        items.push(item.id.replace(/^remove-item-generated_/,''));
+        items.push(item.id.replace(/^remove-item-generated_/, ''));
     });
 
-    fetch("/remove-items", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(items)
-    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
-        if (response) alert("Item(s) Deleted");
-        else alert("You do not have permissions!");
-    });
+    if (items.length > 0)
+        fetch("/remove-items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(items)
+        }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+            if (response) alert("Item(s) Deleted");
+            else alert("You do not have permissions!");
+        });
 }
 
 function reloadPreview() {
@@ -102,7 +105,6 @@ function reloadPreview() {
     };
 
     fetch("webpages/shared/generated/item_panel-edit.html").then(res => res.text()).then(generatedItem => {
-
         previews.forEach(preview => {
             preview.outerHTML = replaceValues(item, generatedItem);
         })
@@ -131,6 +133,41 @@ function swapTap(tab) {
     document.getElementById('tab_name').innerHTML = tab.innerText;
 }
 
+function setupCheckbox(checkBoxEl, fetcher, reserver) {
+    checkBoxEl.checked = (fetcher == reserver);
+    if (reserver != '' && !(fetcher == reserver)) {
+        checkBoxEl.disabled = true;
+    }
+}
+
+function sendCompletion(rowEl, uuid) {
+    fetch("/complete-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            uuid
+        })
+    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+        if (response) rowEl.remove();
+    });
+}
+
+function sendReservation(checkboxEl, fetcher, uuid) {
+    fetch("/reserve-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            uuid
+        })
+    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+        if (response) checkboxEl.parentNode.parentNode.querySelector('.reserver').innerHTML = (checkboxEl.checked) ? fetcher : '';
+    });
+}
+
 (function() {
     /* used to hide oldLoad */
     const oldLoad = window.onload;
@@ -141,6 +178,8 @@ function swapTap(tab) {
 
         generateContent('/get-self', '/webpages/shared/generated/nav_staff.html', 'nav_staff');
         generateContent('/get-self', '/webpages/shared/generated/staff_item_tabs.html', 'tabs', true, true);
+
+        generateContent('/get-orders', '/webpages/shared/generated/item_panel-order.html', 'item_panel-orders');
 
         document.getElementById('edit_item-name').onkeyup = reloadPreview;
         document.getElementById('edit_item-max').onkeyup = reloadPreview;

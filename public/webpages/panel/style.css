@@ -72,8 +72,8 @@ main {
 .separated_group {
     background-color: rgb(129 198 201);
     border-radius: 5px;
-    padding:5px;
-    margin:5px;
+    padding: 5px;
+    margin: 5px;
 }
 
 .section header {
@@ -203,7 +203,7 @@ button.blue:focus {
 }
 
 #edit_item-image {
-    font-family:  sans-serif;
+    font-family: sans-serif;
 }
 
 .pixelized_div {
@@ -244,8 +244,8 @@ button.blue:focus {
     height: 100%;
     position: relative;
     border-radius: 2px;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     background-color: #00e0e0;
     display: flex;
     align-items: center;
@@ -257,11 +257,45 @@ button.blue:focus {
 .item-section .locked {
     width: 97%;
     height: 100%;
-    top:-30px;
+    top: -30px;
 }
 
 .remove_item_div {
     grid-template-columns: min-content 1fr;
     display: grid;
     flex-direction: row;
+}
+
+.orders-div {
+    height: calc(100% - 50px - 30px);
+    overflow-y: scroll;
+    display: grid;
+}
+
+.orders-table {
+    border-collapse: collapse;
+}
+
+.orders-table tbody {
+    overflow-y: scroll;
+}
+
+.orders-table tbody td {
+    height: 14px;
+}
+
+
+.orders-table p {
+    margin: 0;
+}
+
+.orders-table tr>:nth-child(1),
+.orders-table tr>:nth-child(2) {
+    text-align: center;
+    width: 0;
+    padding: 0 5px;
+}
+
+.orders-table tbody>:nth-child(odd) {
+    background-color: rgb(170, 245, 245);
 }

@@ -6,7 +6,7 @@
     "author": "Bug1312",
     "license": "MIT",
     "scripts": {
-        "json2db": "node ./json2db.js"
+        "convert": "node ./json2db.js"
     },
     "dependencies": {
         "body-parser": "^1.19.1",

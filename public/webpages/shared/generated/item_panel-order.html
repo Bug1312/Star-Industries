@@ -1,0 +1,22 @@
+<tr>
+    <td><input type="checkbox" onchange="sendCompletion(this.parentNode.parentNode, '%(uuid)', '%(reserver)')"></td>
+    <td><input type="checkbox" class="reserver-checkbox" onload="setupCheckbox(this, '%(fetcher)', '%(reserver)')" onchange="sendReservation(this, '%(fetcher)', '%(uuid)')"></td>
+    <td>
+        <p>%(ign)</p>
+    </td>
+    <td>
+        <p>%(item)</p>
+    </td>
+    <td>
+        <p>%(amount)</p>
+    </td>
+    <td>
+        <p>%(location)</p>
+    </td>
+    <td>
+        <p>%(total) %(currency)</p>
+    </td>
+    <td>
+        <p class="reserver">%(reserver)</p>
+    </td>
+</tr>
