@@ -10,7 +10,6 @@ function loginAttempt(event) {
             password: document.getElementById('login-password').value
         })
     }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
-        console.log(response)
         if (response.success) {
             let date = new Date();
             date.setTime(date.getTime() + (1000 * 60 * 60))

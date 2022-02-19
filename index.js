@@ -10,16 +10,10 @@ const express = require("express"),
 
 const botData = {
     "channels": {
-        "orders": "630438938464485387"
+        "orders": "933190895837282334"
     },
-    "ping_user": "566630859772526627"
+    "ping_user": "542241353325871105"
 }
-// const botData = {
-//     "channels": {
-//         "orders": "933190895837282334"
-//     },
-//     "ping_user": "542241353325871105"
-// }
 
 require('dotenv').config();
 
@@ -36,7 +30,7 @@ require('dotenv').config();
         console.log(`HTTP RUNNING`);
         db.list('session').then(sessions => {
             sessions.forEach(session => {
-                // db.delete(session);
+                db.delete(session);
             });
         });
     });
