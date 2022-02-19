@@ -16,7 +16,7 @@ const botData = {
 }
 // const botData = {
 //     "channels": {
-//         "orders": "933191055107571732"
+//         "orders": "933190895837282334"
 //     },
 //     "ping_user": "542241353325871105"
 // }
@@ -101,26 +101,30 @@ require('dotenv').config();
 
         db.get(`session_${sessionKey}`).then(session => {
             if (session != null)
-                db.list("order_").then(orders => {
-                    let tempArray = [];
-                    for(dbKey of orders) {
-                        tempArray.push(
-                            db.get(dbKey).then(order => {
-                                return calculateCost(order).then(total => {
-                                    order.uuid = dbKey.replace('order_','');
-                                    order.total = total;
-                                    return order
+                db.get(`user_${session.username}`).then(user => {
+                    db.list("order_").then(orders => {
+                        let tempArray = [];
+                        for (dbKey of orders) {
+                            let key = dbKey.replace('order_', '')
+                            tempArray.push(
+                                db.get(dbKey).then(order => {
+                                    return calculateCost(order).then(total => {
+                                        order.uuid = key;
+                                        order.total = total;
+                                        order.fetcher = user.username;
+                                        return order
+                                    })
                                 })
-                            })
-                        )
-                    }
+                            )
+                        }
 
-                    Promise.all(tempArray).then(result => {
-                        response.send(JSON.stringify(result))
+                        Promise.all(tempArray).then(result => {
+                            response.send(JSON.stringify(result))
+                        });
                     });
                 });
             else response.send(undefined);
-        })       
+        })
     });
 
     app.post("/post-login", function(request, response) {
@@ -205,7 +209,7 @@ require('dotenv').config();
                     } else response.send(false);
                 });
             else response.send(false);
-        })       
+        })
     });
 
     app.post('/remove-items', function(request, response) {
@@ -218,8 +222,8 @@ require('dotenv').config();
                         console.log(`${user.username} has deleted these items:`);
                         console.log(request.body);
                         request.body.forEach(item => {
-                            db.get(`item_${item}`).then(itemData=>{
-                                if(itemData) db.delete(`item_${item}`);
+                            db.get(`item_${item}`).then(itemData => {
+                                if (itemData) db.delete(`item_${item}`);
                             })
                         });
 
@@ -227,31 +231,33 @@ require('dotenv').config();
                     } else response.send(false);
                 });
             else response.send(false);
-        })      
+        })
     });
 
     app.post("/get-items", function(request, response) {
         db.list("item_").then(items => {
             let tempArray = [];
-            for(dbKey of items) {
+            for (dbKey of items) {
                 db.get(dbKey).then(item => {
                     tempArray.push(item);
                 });
             }
             return tempArray;
-        }).then(items=>response.send(JSON.stringify(items)));
+        }).then(items => response.send(JSON.stringify(items)));
     });
 
     app.post("/get-employees", function(request, response) {
         db.list("user_").then(users => {
             let tempArray = [];
-            for(dbKey of users) {
+            for (dbKey of users) {
                 db.get(dbKey).then(user => {
-                    tempArray.push({name:user.username});
+                    tempArray.push({
+                        name: user.username
+                    });
                 });
             }
             return tempArray;
-        }).then(items=>response.send(JSON.stringify(items)));;
+        }).then(items => response.send(JSON.stringify(items)));;
     });
 
     app.post("/get-self", function(request, response) {
@@ -263,6 +269,37 @@ require('dotenv').config();
                     response.send([user]);
                 });
             else response.send(undefined);
+        });
+    });
+
+    app.post("/reserve-order", function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`order_${request.body.uuid}`).then(order => {
+                    if (order != null) {
+                        if (order.reserver == session.username) delete order.reserver;
+                        else order.reserver = session.username;
+
+                        db.set(`order_${request.body.uuid}`, order).then(_ => {
+                            response.send(true);
+                        });
+                    }
+                });
+        });
+    });
+
+    app.post("/complete-order", function(request, response) {
+        let sessionKey = request.cookies["session_key"];
+        db.get(`session_${sessionKey}`).then(session => {
+            if (session != null)
+                db.get(`order_${request.body.uuid}`).then(order => {
+                    db.delete(`order_${request.body.uuid}`).then(_ => {
+                        console.log(`${session.username} completed this order:`);
+                        console.log(order);
+                        response.send(true);
+                    });
+                });
         });
     });
 }

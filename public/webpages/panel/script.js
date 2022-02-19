@@ -63,13 +63,15 @@ function deleteItems(event) {
     let items = [];
 
     document.querySelectorAll('#remove_item input[type=checkbox]:checked').forEach(item => {
-        items.push(item.id.replace(/^remove-item-generated_/,''));
+        items.push(item.id.replace(/^remove-item-generated_/, ''));
     });
 
-    if(items.length > 0)
+    if (items.length > 0)
         fetch("/remove-items", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(items)
         }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
             if (response) alert("Item(s) Deleted");
@@ -103,7 +105,6 @@ function reloadPreview() {
     };
 
     fetch("webpages/shared/generated/item_panel-edit.html").then(res => res.text()).then(generatedItem => {
-
         previews.forEach(preview => {
             preview.outerHTML = replaceValues(item, generatedItem);
         })
@@ -130,6 +131,41 @@ function swapTap(tab) {
     tab.setAttribute('selected', '');
     document.getElementById(tab.getAttribute('for')).removeAttribute('hidden');
     document.getElementById('tab_name').innerHTML = tab.innerText;
+}
+
+function setupCheckbox(checkBoxEl, fetcher, reserver) {
+    checkBoxEl.checked = (fetcher == reserver);
+    if (reserver != '' && !(fetcher == reserver)) {
+        checkBoxEl.disabled = true;
+    }
+}
+
+function sendCompletion(rowEl, uuid) {
+    fetch("/complete-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            uuid
+        })
+    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+        if (response) rowEl.remove();
+    });
+}
+
+function sendReservation(checkboxEl, fetcher, uuid) {
+    fetch("/reserve-order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            uuid
+        })
+    }).then(response => response.text()).then(text => JSON.parse(text)).then(response => {
+        if (response) checkboxEl.parentNode.parentNode.querySelector('.reserver').innerHTML = (checkboxEl.checked) ? fetcher : '';
+    });
 }
 
 (function() {
