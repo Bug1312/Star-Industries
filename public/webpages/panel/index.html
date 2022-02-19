@@ -26,7 +26,6 @@
                     <input id="change_pass-new_confirm" class="darker_input input long_input" type="password" placeholder="Confirm New Password" required autocomplete="false">
                 </div>
                 <div class="buttons">
-                    <button type="submit" class="red">Log Out</button>
                     <button type="submit" class="blue">Change Password</button>
                 </div>
             </form>
@@ -40,15 +39,15 @@
                 <form id="edit_item" onsubmit="newItem(event)" onchange="reloadPreview()">
                     <section>
                         <div class="separated_group">
-                        <label class="form_label">Name</label>
-                        <input id="edit_item-name" class="input long_input" type="text" placeholder="Item Name" required>
-                    </div>
+                            <label class="form_label">Name</label>
+                            <input id="edit_item-name" class="input long_input" type="text" placeholder="Item Name" required>
+                        </div>
                         <div class="separated_group">
                             <label class="form_label">Image</label>
                             <div class="pixelized_div">
                                 <input id="edit_item-image" class="input short_input" type="text" placeholder="Image URL" required>
                                 <div>
-                                    <label for="edit_item-pixelized">Pixelized?</label>                                        
+                                    <label for="edit_item-pixelized">Pixelized?</label>
                                     <input id="edit_item-pixelized" type="checkbox">
                                 </div>
                             </div>
@@ -58,7 +57,7 @@
                             <div>
                                 <input id="edit_item-cost_fcs" class="input short_input" type="number" placeholder="FCS Cost" min="0" required>
                                 <a class="slash">/</a>
-                                <input id="edit_item-per_fcs" class="input short_input"  type="number" placeholder="Per Item" min="0" required>
+                                <input id="edit_item-per_fcs" class="input short_input" type="number" placeholder="Per Item" min="0" required>
                             </div>
                             <div>
                                 <input id="edit_item-cost_diamond" class="input short_input" type="number" placeholder="Diamond Cost" min="0" required>
@@ -77,12 +76,12 @@
             </div>
             <div id="tab_remove" hidden>
                 <form id="remove_item" onsubmit="deleteItems(event)">
-                <div class="remove_grid" type="item_panel-remove" generated></div>
-                <button type="submit" class="red bottom_button">Remove Item(s)</button>
-            </form>
+                    <div class="remove_grid" type="item_panel-remove" generated></div>
+                    <button type="submit" class="red bottom_button">Remove Item(s)</button>
+                </form>
             </div>
         </div>
-        <div class="section order-section" name="orders">            
+        <div class="section order-section" name="orders">
             <header>
                 Orders
             </header>
@@ -99,7 +98,7 @@
                         <td>Reserved To </td>
                     </thead>
                     <tbody type="item_panel-orders" generated></tbody>
-                </table> 
+                </table>
             </div>
         </div>
     </main>
