@@ -164,13 +164,7 @@ form {
     align-items: center;
 }
 
-.item_popup-total>a>p::before {
-    content: "$"
-}
 
-.total-diamond::before {
-    content: " /";
-}
 
 #total-diamond img {
     transform: scale(3);
