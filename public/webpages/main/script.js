@@ -5,7 +5,6 @@ function openForm(parent) {
 
     document.getElementById("item-name").innerHTML = `${parent.querySelector(".item-name").innerHTML} #${parent.querySelector(".item_popup-amount").value}`;
 
-    document.getElementById("total-fcs").innerHTML = parent.querySelector(".total-fcs").innerHTML;
     document.getElementById("total-diamond").innerHTML = parent.querySelector(".total-diamond").innerHTML;
 
     document.getElementsByTagName('overlay')[0].setAttribute("open", "true");

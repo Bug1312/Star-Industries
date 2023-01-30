@@ -30,11 +30,9 @@ function newItem(ev) {
         pixelated = document.getElementById('edit_item-pixelized').checked,
         max = document.getElementById('edit_item-max').value,
         cost = {
-            fcs: document.getElementById('edit_item-cost_fcs').value,
             diamond: document.getElementById('edit_item-cost_diamond').value
         },
         per_item = {
-            fcs: document.getElementById('edit_item-per_fcs').value,
             diamond: document.getElementById('edit_item-per_diamond').value
         }
 
@@ -86,11 +84,9 @@ function reloadPreview() {
         pixelated = document.getElementById('edit_item-pixelized').checked,
         max = document.getElementById('edit_item-max').value,
         cost = {
-            fcs: document.getElementById('edit_item-cost_fcs').value,
             diamond: document.getElementById('edit_item-cost_diamond').value,
         },
         per_item = {
-            fcs: document.getElementById('edit_item-per_fcs').value,
             diamond: document.getElementById('edit_item-per_diamond').value,
         },
         previews = document.querySelectorAll('generated[type="item_panel-edit"]')
@@ -111,13 +107,10 @@ function reloadPreview() {
 
         document.querySelectorAll('.item_popup-amount').forEach(element => {
             let parent = element.parentElement,
-                elFCS = parent.querySelector(".total-fcs"),
                 elDiamonds = parent.querySelector(".total-diamond");
             let amount = Math.ceil(element.value),
-                calcFCS = eval(elFCS.getAttribute("calc")),
                 calcDiamonds = eval(elDiamonds.getAttribute("calc"));
 
-            elFCS.innerHTML = Math.ceil(calcFCS * amount);
             elDiamonds.innerHTML = Math.ceil(calcDiamonds * amount) + "<img />";
         });
     });
@@ -184,7 +177,6 @@ function sendReservation(checkboxEl, fetcher, uuid) {
         document.getElementById('edit_item-name').onkeyup = reloadPreview;
         document.getElementById('edit_item-max').onkeyup = reloadPreview;
         document.getElementById('edit_item-pixelized').onkeyup = reloadPreview;
-        document.getElementById('edit_item-cost_fcs').onkeyup = reloadPreview;
         document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
         document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
         document.getElementById('edit_item-per_diamond').onkeyup = reloadPreview;
@@ -193,7 +185,6 @@ function sendReservation(checkboxEl, fetcher, uuid) {
         document.getElementById('edit_item-name').onkeyup = reloadPreview;
         document.getElementById('edit_item-max').onkeyup = reloadPreview;
         document.getElementById('edit_item-pixelized').onkeyup = reloadPreview;
-        document.getElementById('edit_item-cost_fcs').onkeyup = reloadPreview;
         document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
         document.getElementById('edit_item-cost_diamond').onkeyup = reloadPreview;
         document.getElementById('edit_item-per_diamond').onkeyup = reloadPreview;

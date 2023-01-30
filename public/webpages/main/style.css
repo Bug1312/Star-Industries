@@ -168,10 +168,6 @@ form {
     content: "$"
 }
 
-.item_popup-total>a>p::after {
-    content: "FCS"
-}
-
 .total-diamond::before {
     content: " /";
 }
@@ -187,13 +183,6 @@ form {
     margin-right: 15px;
 }
 
-#total-fcs::before {
-    content: "$"
-}
-
-#total-fcs::after {
-    content: "FCS"
-}
 
 @media only screen and (min-width: 768px) {
     form {

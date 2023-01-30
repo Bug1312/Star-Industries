@@ -46,10 +46,6 @@ require('dotenv').config();
         response.sendFile(__dirname + "/public/webpages/employees/index.html")
     });
 
-    app.get("/fcs", (request, response) => {
-        response.sendFile(__dirname + "/public/webpages/fcs/index.html")
-    });
-
     app.get("/login", (request, response) => {
         response.sendFile(__dirname + "/public/webpages/login/index.html")
     });
@@ -188,11 +184,9 @@ require('dotenv').config();
                             "pixelated": request.body.pixelated,
                             "max": request.body.max,
                             "cost": {
-                                "fcs": request.body.cost.fcs,
                                 "diamond": request.body.cost.diamond
                             },
                             "per_item": {
-                                "fcs": request.body.per_item.fcs,
                                 "diamond": request.body.per_item.diamond
                             }
                         };
@@ -305,7 +299,7 @@ function createOrderMessage(order) {
             `<@${botData.ping_user}>, Order Incoming!`,
             `IGN: \`${order.ign}\``,
             `Item: ${order.item}#${order.amount}`,
-            `Payment: ${(order.currency == "FCS") ? `$${total}FCS`:`${total} Diamond(s)`}`,
+            `Payment: ${total} Diamond(s)`,
             `Coords: ${order.location}`
         ].join("\n");
     });
@@ -313,13 +307,8 @@ function createOrderMessage(order) {
 
 function calculateCost(orderData) {
     return db.get(`item_${orderData.item}`).then(item => {
-        if (orderData.currency == "FCS") {
-            let default_amt = item.per_item.fcs ? item.per_item.fcs : 1
-            return Math.ceil((item.cost.fcs / default_amt) * orderData.amount)
-        } else {
-            let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
-            return Math.ceil((item.cost.diamond / default_amt) * orderData.amount)
-        }
+        let default_amt = item.per_item.diamond ? item.per_item.diamond : 1
+        return Math.ceil((item.cost.diamond / default_amt) * orderData.amount)
     })
 }
 

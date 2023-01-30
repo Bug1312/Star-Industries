@@ -3,7 +3,6 @@ window.onload = () => {
 
     generateContent('/get-items'    ,               '/webpages/shared/generated/item_main.html', 'items_main'      );
     generateContent('/get-employees',               '/webpages/shared/generated/employee.html',  'employees'       );
-    generateContent('https://api.flexcrop.net/fcs', '/webpages/shared/generated/item_fcs.html',  'items_fcs', false);
 };
 
 async function importContents() {
@@ -50,7 +49,6 @@ function replaceValues(item, generatedHTML, extraData = {}) {
                     return recursiveValue(extraData, key);
                 case "pixelized":
                     return true;
-                case "per_item.fcs":
                 case "per_item.diamond":
                     return 1;
                 case "max":
@@ -98,12 +96,9 @@ function closePopup() {
 
 function updateCosts(element) {
     let parent = element.parentElement,
-        elFCS = parent.querySelector(".total-fcs"),
         elDiamonds = parent.querySelector(".total-diamond");
     let amount = Math.ceil(element.value),
-        calcFCS = eval(elFCS.getAttribute("calc")),
         calcDiamonds = eval(elDiamonds.getAttribute("calc"));
 
-    elFCS.innerHTML = Math.ceil(calcFCS * amount);
     elDiamonds.innerHTML = Math.ceil(calcDiamonds * amount) + "<img />";
 }
