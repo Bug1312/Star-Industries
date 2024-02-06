@@ -23,7 +23,6 @@ function sendOrder(event) {
         location: document.getElementById("location").value,
         item: document.getElementById("item-name").innerText.match(/^.+(?= #)/)[0],
         amount: Number(document.getElementById("item-name").innerText.match(/(?<=#)\d+$/)),
-        currency: document.getElementById("currencyOption").value
     };
 
     fetch("/post-order", {
