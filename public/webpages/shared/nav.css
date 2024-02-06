@@ -1,7 +1,7 @@
 
 nav {
     font-family: 'Oswald';
-    background-color: hsl(274, 57%, 45%);
+    background-color: hsl(267, 97%, 70%);
     display: flex;
     align-items: center;
     padding: 0 10px;
@@ -10,9 +10,9 @@ nav {
 .nav-title {
     font-size: 2.6rem;
     margin: 0 10px 0 10px;
-    background-color: hsl(274, 57%, 65%);
+    background-color: hsl(267, 97%, 100%);
     color: transparent;
-    text-shadow: 0px 2px 3px hsl(274, 57%, 70%);
+    /* text-shadow: 0px 2px 3px hsl(267, 97%, 100%); */
     background-clip: text;
     -moz-background-clip: text;
     -webkit-background-clip: text;

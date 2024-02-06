@@ -10,7 +10,7 @@ main {
 
 .section {
     background-color: aliceblue;
-    box-shadow: 10px 10px 0 hsl(274, 57%, 30%);
+    box-shadow: 10px 10px 0 hsl(267, 97%, 60%);
     border-radius: 2px;
     overflow: hidden;
     position: relative;
@@ -56,21 +56,21 @@ main {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    box-shadow: 10px 10px 0 hsl(274, 57%, 30%);
+    box-shadow: 10px 10px 0 hsl(267, 97%, 60%);
     top: 0;
     left: 0;
     z-index: -1;
 }
 
 .tabs>*[selected] {
-    background-color: hsl(274, 57%, 35%);
+    background-color: hsl(267, 97%, 70%);
     transform: translateY(-5px);
     padding-bottom: 35px;
     z-index: -1;
 }
 
 .separated_group {
-    background-color: hsl(274, 57%, 65%);
+    background-color: hsl(267, 97%, 65%);
     border-radius: 5px;
     padding: 5px;
     margin: 5px;
@@ -79,7 +79,7 @@ main {
 .section header {
     font-size: 2rem;
     color: white;
-    background-color: hsl(274, 57%, 35%);
+    background-color: hsl(267, 97%, 70%);
     padding: 5px;
     padding-left: 15px;
 }
@@ -158,13 +158,13 @@ button.red:focus {
 }
 
 button.blue {
-    background-color: hsl(274, 57%, 35.1%);
+    background-color: hsl(267, 97%, 70%);
     color: white;
 }
 
 button.blue:hover,
 button.blue:focus {
-    background-color: hsl(274, 57%, 60%);
+    background-color: hsl(267, 97%, 70%);
 }
 
 #edit_item {
@@ -246,7 +246,7 @@ button.blue:focus {
     border-radius: 2px;
     top: 0;
     left: 0;
-    background-color: hsl(274, 57%, 60%);
+    background-color: hsl(267, 97%, 70%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -297,5 +297,5 @@ button.blue:focus {
 }
 
 .orders-table tbody>:nth-child(odd) {
-    background-color: hsl(274, 57%, 81.37%)
+    background-color: hsl(267, 97%, 81.37%)
 }
