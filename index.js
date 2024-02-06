@@ -10,9 +10,9 @@ const express = require("express"),
 
 const botData = {
     "channels": {
-        "orders": "933190895837282334"
+        "orders": "1194836356933877821"
     },
-    "ping_user": "542241353325871105"
+    "ping_user": "363483005949444097"
 }
 
 require('dotenv').config();
@@ -26,14 +26,20 @@ require('dotenv').config();
     app.use(bodyParser.json());
     app.use(cookieParser());
 
-    app.listen(process.env.PORT, () => {
-        console.log(`HTTP RUNNING`);
-        db.list('session').then(sessions => {
-            sessions.forEach(session => {
-                db.delete(session);
-            });
+    try {
+        const httpsCertOptions = {
+            key: fs.readFileSync(`${process.env.CERT_FOLDER}/private.key.pem`),
+            cert: fs.readFileSync(`${process.env.CERT_FOLDER}/domain.cert.pem`),
+        }
+        https.createServer(httpsCertOptions, app).listen(process.env.PORT, function() {
+            console.log(`HTTPS RUNNING`);
         });
-    });
+    } catch (err) {
+        console.warn("Error running https; Running http");
+        app.listen(process.env.PORT, function() {
+            console.log(`HTTP RUNNING`);
+        });
+    }
 }
 
 // Pages 
